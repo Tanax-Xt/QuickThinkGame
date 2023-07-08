@@ -12,6 +12,7 @@ import com.mygdx.game.screens.SecondGameScreen;
 import com.mygdx.game.screens.SettingsScreen;
 import com.mygdx.game.screens.ThirdGameScreen;
 import com.mygdx.game.utils.CustomFont;
+import com.mygdx.game.utils.GameSettings;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -29,12 +30,12 @@ public class MyGdxGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		camera = new OrthographicCamera(1920, 1080);
-		camera.setToOrtho(false, 1920, 1080);
+		camera = new OrthographicCamera(GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
+		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 
-//		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
+		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
-//		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
+		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 
 		menuScreen = new MenuScreen(this);
 		firstGameScreen = new FirstGameScreen(this);
@@ -45,19 +46,9 @@ public class MyGdxGame extends Game {
 
 		setScreen(menuScreen);
 	}
-
-	@Override
-	public void render () {
-//		rgba(253, 233, 16, 1)
-		ScreenUtils.clear((float) 0.99, (float) 0.91, (float) 0.06, 1);
-		batch.begin();
-
-		batch.end();
-	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-
 	}
 }
