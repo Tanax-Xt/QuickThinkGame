@@ -25,10 +25,11 @@ public class MyGdxGame extends Game {
 	public GameOverScreen gameOverScreen;
 	public OrthographicCamera camera;
 	public CustomFont defaultFont;
-	public CustomFont gameFont;
+	public CustomFont gameFont1;
+	public CustomFont gameFont2;
+	public CustomFont gameFontLarge1;
+	public CustomFont gameFontLarge2;
 	public CustomFont largeFont;
-	public CustomFont largeGameFont;
-	public CustomFont gameFontLarge;
 	public Vector3 touch;
 
 	@Override
@@ -39,9 +40,10 @@ public class MyGdxGame extends Game {
 		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 
 		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
-		gameFont = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
-		largeGameFont = new CustomFont(120, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
-		gameFontLarge = new CustomFont(130, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFont1 = new CustomFont(100, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFont2 = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFontLarge1 = new CustomFont(200, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFontLarge2 = new CustomFont(130, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 

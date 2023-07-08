@@ -33,7 +33,7 @@ public class ThirdGameScreen implements Screen {
 
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
-        TextView clickText = new TextView(myGdxGame.largeGameFont.bitmapFont, "Click!", GameSettings.SCR_WIDTH / 2 - 150, 200);
+        TextView clickText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, "Click!", GameSettings.SCR_WIDTH / 2 - 150, 200);
 
         components.add(settingsIcon);
         components.add(returnMenu);

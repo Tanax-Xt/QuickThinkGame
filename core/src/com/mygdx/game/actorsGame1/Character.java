@@ -1,4 +1,4 @@
-package com.mygdx.game.actors;
+package com.mygdx.game.actorsGame1;
 
 import static com.mygdx.game.utils.GameSettings.SCR_HEIGHT;
 import static com.mygdx.game.utils.GameSettings.SCR_WIDTH;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.UiComponent;
+import com.mygdx.game.utils.GameSettings;
 
 import java.util.ArrayList;
 
@@ -17,19 +18,26 @@ public class Character {
 
     protected int x;
     protected int y;
-    public int width;
+    int ex = 0;
+    public int width = height = (int) (SCR_WIDTH * 0.35);
     public int height;
-    protected float velocityX;
-    protected float velocityY;
-    protected int textureStage;
+
+//    protected float velocityX;
+//    protected float velocityY;
+//    protected int textureStage;
 
     public boolean isAlive;
 
-    Character(Texture texture) {
+    Character(Texture texture, int x, int y) {
         this.texture = texture;
-        width = height = MathUtils.random(100, 250);
+        this.x = x;
+        this.y = y;
         actorImgView = new ImageView(x, y, width, height, texture);
 //        isAlive = true;
+    }
+
+    public int update() {
+        return ex;
     }
 
 //    public void update() {
