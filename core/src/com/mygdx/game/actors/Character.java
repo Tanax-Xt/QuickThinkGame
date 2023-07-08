@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Character {
     UiComponent.OnClickListener onClickListener;
-    ArrayList<Texture> texturesArray;
+    Texture texture;
     public ImageView actorImgView;
 
     protected int x;
@@ -25,22 +25,21 @@ public class Character {
 
     public boolean isAlive;
 
-    Character(ArrayList<Texture> texturesArray) {
-        this.texturesArray = texturesArray;
+    Character(Texture texture) {
+        this.texture = texture;
         width = height = MathUtils.random(100, 250);
-        textureStage = MathUtils.random(0, texturesArray.size() - 1);
-        actorImgView = new ImageView(x, y, width, height, texturesArray.get(textureStage));
-        isAlive = true;
+        actorImgView = new ImageView(x, y, width, height, texture);
+//        isAlive = true;
     }
 
-    public void update() {
-        actorImgView.x = x += velocityX;
-        actorImgView.y = y += velocityY;
-
-        if (x < 0 || x > SCR_WIDTH - width) velocityX = -velocityX;
-        if (y < 0 || y > SCR_HEIGHT - height) velocityY = -velocityY;
-
-        textureStage = (textureStage + 1) % texturesArray.size();
-        actorImgView.setImgTexture(texturesArray.get(textureStage));
-    }
+//    public void update() {
+//        actorImgView.x = x += velocityX;
+//        actorImgView.y = y += velocityY;
+//
+//        if (x < 0 || x > SCR_WIDTH - width) velocityX = -velocityX;
+//        if (y < 0 || y > SCR_HEIGHT - height) velocityY = -velocityY;
+//
+//        textureStage = (textureStage + 1) % texturesArray.size();
+//        actorImgView.setImgTexture(texturesArray.get(textureStage));
+//    }
 }
