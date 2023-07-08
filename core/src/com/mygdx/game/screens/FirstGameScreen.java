@@ -57,10 +57,12 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void show() {
-        secondsToEnd = 61;
+        secondsToEnd = 60;
         gameScore = 0;
-        score = new TextView(myGdxGame.gameFont.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.62));
+        score = new TextView(myGdxGame.gameFont.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
+        time = new TextView(myGdxGame.gameFontLarge.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 130, (int) (GameSettings.SCR_HEIGHT * 0.8));
         components.add(score);
+        components.add(time);
     }
 
     @Override
