@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class MenuScreen implements Screen {
     MyGdxGame myGdxGame;
     ArrayList<UiComponent> components;
-    final int titleWidth = 450;
-    final int titleHeight = 200;
-    final int bgHeight = (int) (GameSettings.SCR_HEIGHT);
+    final int titleWidth = (int) (GameSettings.SCR_WIDTH * 0.7);
+    final int titleHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
+    final int bgHeight = GameSettings.SCR_HEIGHT;
     final int bgWidth = GameSettings.SCR_WIDTH;
     final int versionTextHeight = 50;
     final int versionTextWidth = 300;
-    final int buttonWidth = 550;
-    final int buttonHeight = 150;
+    final int buttonWidth = (int) (GameSettings.SCR_WIDTH * 0.75);
+    final int buttonHeight = (int) (GameSettings.SCR_WIDTH * 0.21);
     public MenuScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
 
