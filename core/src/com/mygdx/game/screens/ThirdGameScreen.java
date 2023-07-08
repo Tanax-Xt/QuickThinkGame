@@ -24,7 +24,7 @@ public class ThirdGameScreen implements Screen {
     int settingsIconWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     int settingsIconHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ПРИ ПЕРЕХОДЕ В GAME OVER
-    private float timer = 30f;
+    private float timer = 3f;
 
     public ThirdGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
