@@ -30,4 +30,5 @@ public class ImageView extends UiComponent {
     public void setImgTexture(Texture imgTexture) {
         this.imgTexture = imgTexture;
     }
+
 }
