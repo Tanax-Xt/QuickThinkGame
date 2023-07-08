@@ -38,8 +38,8 @@ public class MyGdxGame extends Game {
 		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 
 		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
-		gameFont = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
-		gameFontLarge = new CustomFont(130, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFont = new CustomFont(100, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		gameFontLarge = new CustomFont(200, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 

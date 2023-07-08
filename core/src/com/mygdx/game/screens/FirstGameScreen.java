@@ -5,6 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.actorsGame1.Character;
+import com.mygdx.game.actorsGame1.Flower;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class FirstGameScreen implements Screen {
     MyGdxGame myGdxGame;
     ArrayList<UiComponent> components;
+    ArrayList<Character> actorsComponents;
 
     TextView score;
     TextView time;
@@ -30,6 +33,7 @@ public class FirstGameScreen implements Screen {
         this.myGdxGame = myGdxGame;
 
         components = new ArrayList<>();
+        actorsComponents = new ArrayList<>();
 
         ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
@@ -60,9 +64,10 @@ public class FirstGameScreen implements Screen {
         secondsToEnd = 60;
         gameScore = 0;
         score = new TextView(myGdxGame.gameFont.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
-        time = new TextView(myGdxGame.gameFontLarge.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 130, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        time = new TextView(myGdxGame.gameFontLarge.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));
         components.add(score);
         components.add(time);
+        loadActors();
     }
 
     @Override
@@ -71,7 +76,8 @@ public class FirstGameScreen implements Screen {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);
             for (UiComponent component : components) {
-                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                if (component.isVisible)
+                    component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
         }
 
@@ -79,9 +85,10 @@ public class FirstGameScreen implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.begin();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
-        for (UiComponent component: components) {
+        for (UiComponent component : components) {
             component.draw(myGdxGame.batch);
         }
+//        for ()
         myGdxGame.batch.end();
     }
 
@@ -110,6 +117,12 @@ public class FirstGameScreen implements Screen {
 
     }
 
+    void loadActors() {
+        Flower flower1 = new Flower(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.6), (int) (GameSettings.SCR_HEIGHT * 0.15));
+        Flower flower2 = new Flower(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.05), (int) (GameSettings.SCR_HEIGHT * 0.15));
+        components.add(flower1.actorImgView);
+        components.add(flower2.actorImgView);
+    }
 
 
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
