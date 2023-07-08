@@ -41,7 +41,7 @@ public class ThirdGameScreen implements Screen {
         components = new ArrayList<>();
         itemsComponents = new ArrayList<>();
 
-        ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
+        ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "images/chooseright.png");
         TextView clickText = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "Click!", GameSettings.SCR_WIDTH / 2 - 150, 200);
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
