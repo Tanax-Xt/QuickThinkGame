@@ -2,9 +2,11 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ui.ImageView;
+import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.utils.GameSettings;
 
@@ -13,13 +15,16 @@ import java.util.ArrayList;
 public class FirstGameScreen implements Screen {
     MyGdxGame myGdxGame;
     ArrayList<UiComponent> components;
+
+    TextView score;
+    TextView time;
+
     final int bgHeight = GameSettings.SCR_HEIGHT;
     final int bgWidth = GameSettings.SCR_WIDTH;
     private int secondsToEnd;
     private int gameScore;
-
-    int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
-    int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
+    private int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
+    private int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
 
     public FirstGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -54,6 +59,8 @@ public class FirstGameScreen implements Screen {
     public void show() {
         secondsToEnd = 61;
         gameScore = 0;
+        score = new TextView(myGdxGame.gameFont.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.62));
+        components.add(score);
     }
 
     @Override
@@ -100,6 +107,8 @@ public class FirstGameScreen implements Screen {
     public void dispose() {
 
     }
+
+
 
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
