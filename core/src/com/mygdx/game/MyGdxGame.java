@@ -25,7 +25,7 @@ public class MyGdxGame extends Game {
 	public GameOverScreen gameOverScreen;
 	public OrthographicCamera camera;
 	public CustomFont defaultFont;
-	public CustomFont accentFont;
+	public CustomFont gameFont;
 	public CustomFont largeFont;
 	public Vector3 touch;
 
@@ -37,6 +37,7 @@ public class MyGdxGame extends Game {
 		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 
 		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
+		gameFont = new CustomFont(40, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 
