@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ui.ImageView;
+import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
@@ -22,6 +23,7 @@ public class SettingsScreen implements Screen {
     int settingsIconHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.28);
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
+    int activeIcon = 1;
 
     public SettingsScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -32,28 +34,51 @@ public class SettingsScreen implements Screen {
         ImageView bgSettings = new ImageView(0, GameSettings.SCR_HEIGHT - bgSettingsHeight, GameSettings.SCR_WIDTH, bgSettingsHeight, "backgrounds/settingsbg.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
+        TextView musicTitle = new TextView(myGdxGame.gameFont.bitmapFont, "Music:", 100, 200);
+        ImageView arrowLeft = new ImageView(300, 200, 64, 64, "images/left.png");
+        ImageView arrowRight = new ImageView(600, 200, 64, 64, "images/right.png");
 
         components.add(bgSettings);
         components.add(returnMenu);
         components.add(settingsIcon);
+        components.add(musicTitle);
+        components.add(arrowLeft);
+        components.add(arrowRight);
 
-        int activeIcon = MemoryLoader.loadIconState();
+        activeIcon = MemoryLoader.loadIconState();
         for (int i = 1; i <= 3; i++) {
-            if (activeIcon == i) {
-                ImageView activeIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + i + ".png");
-                components.add(activeIconImage);
-            }
+            final ImageView activeIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + i + ".png");
+            if (activeIcon == i) components.add(activeIconImage);
+
             ImageView icon = new ImageView((int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27)), (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - iconHeight), iconWidth, iconHeight, "icons/icon" + i + ".png");
-//            icon.setOnClickListener();
+            final int finalI = i;
+            icon.setOnClickListener(new UiComponent.OnClickListener() {
+                @Override
+                public void onClick() {
+//                    components.remove(activeIcon);
+                    MemoryLoader.saveIconState(finalI);
+                    activeIcon = finalI;
+//                    components.add(activeIconImage);
+                }
+            });
             components.add(icon);
         }
         for (int i = 4; i <= 6; i++) {
-            if (activeIcon == i) {
-                ImageView activeIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + i + ".png");
-                components.add(activeIconImage);
-            }
+            final ImageView activeIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + i + ".png");
+            if (activeIcon == i) components.add(activeIconImage);
+
             ImageView icon = new ImageView((int) ((i - 3) * 50 + (i - 4) * (GameSettings.SCR_WIDTH * 0.27)), (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - 2.2 * iconHeight), iconWidth, iconHeight, "icons/icon" + i + ".png");
             components.add(icon);
+            final int finalI = i;
+            icon.setOnClickListener(new UiComponent.OnClickListener() {
+                @Override
+                public void onClick() {
+//                    components.remove(activeIcon);
+                    MemoryLoader.saveIconState(finalI);
+                    activeIcon = finalI;
+//                    components.add(activeIconImage);
+                }
+            });
         }
 
         bgSettings.setOnClickListener(onClickBtnReturn);
@@ -114,13 +139,6 @@ public class SettingsScreen implements Screen {
         @Override
         public void onClick() {
             myGdxGame.setScreen(myGdxGame.menuScreen);
-        }
-    };
-
-    UiComponent.OnClickListener onClickBtnChooseItem = new UiComponent.OnClickListener() {
-        @Override
-        public void onClick() {
-//            MemoryLoader.saveIconState();
         }
     };
 }
