@@ -1,5 +1,6 @@
 package com.mygdx.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
@@ -34,7 +35,6 @@ public class MenuScreen implements Screen {
         ImageView chooseRightBtn = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - 0.5 * buttonWidth), GameSettings.SCR_HEIGHT / 2 - 420, buttonWidth, buttonHeight, "buttons/chooseright.png");
         ImageView settingsBtn = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - 0.5 * buttonWidth), GameSettings.SCR_HEIGHT / 2 - 620, buttonWidth, buttonHeight, "buttons/settings.png");
 
-
         components.add(yellowBG);
         components.add(title);
         components.add(versionText);
@@ -42,6 +42,11 @@ public class MenuScreen implements Screen {
         components.add(collectOrderBtn);
         components.add(chooseRightBtn);
         components.add(settingsBtn);
+
+        clickCarefullyBtn.setOnClickListener(onClickBtnCarefully);
+        collectOrderBtn.setOnClickListener(onClickBtnCollectOrder);
+        chooseRightBtn.setOnClickListener(onClickBtnChooseRight);
+        settingsBtn.setOnClickListener(onClickBtnSettings);
     }
 
     @Override
@@ -52,6 +57,14 @@ public class MenuScreen implements Screen {
     @Override
     public void render(float delta) {
 //        ScreenUtils.clear((float) 0.99, (float) 0.91, (float) 0.06, 1);
+        if (Gdx.input.justTouched()) {
+            myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            myGdxGame.camera.unproject(myGdxGame.touch);
+            for (UiComponent component : components) {
+                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
+        }
+
         ScreenUtils.clear(1, 1, 1, 1);
         myGdxGame.camera.update();
         myGdxGame.batch.begin();
@@ -87,4 +100,31 @@ public class MenuScreen implements Screen {
     public void dispose() {
 
     }
+
+    UiComponent.OnClickListener onClickBtnCarefully = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            myGdxGame.setScreen(myGdxGame.firstGameScreen);
+        }
+    };
+    UiComponent.OnClickListener onClickBtnCollectOrder = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            myGdxGame.setScreen(myGdxGame.secondGameScreen);
+        }
+    };
+
+    UiComponent.OnClickListener onClickBtnChooseRight = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            myGdxGame.setScreen(myGdxGame.thirdGameScreen);
+        }
+    };
+
+    UiComponent.OnClickListener onClickBtnSettings = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            myGdxGame.setScreen(myGdxGame.settingsScreen);
+        }
+    };
 }

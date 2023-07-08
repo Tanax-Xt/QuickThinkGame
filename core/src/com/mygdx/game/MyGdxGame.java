@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.screens.FirstGameScreen;
 import com.mygdx.game.screens.GameOverScreen;
@@ -26,9 +27,11 @@ public class MyGdxGame extends Game {
 	public CustomFont defaultFont;
 	public CustomFont accentFont;
 	public CustomFont largeFont;
+	public Vector3 touch;
 
 	@Override
 	public void create () {
+		touch = new Vector3();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);

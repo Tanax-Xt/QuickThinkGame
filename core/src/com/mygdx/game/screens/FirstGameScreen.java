@@ -1,7 +1,9 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.ui.UiComponent;
 
 public class FirstGameScreen implements Screen {
     MyGdxGame myGdxGame;
@@ -17,7 +19,13 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(1, 1, 1, 1);
+        myGdxGame.camera.update();
+        myGdxGame.batch.begin();
+        myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
 
+
+        myGdxGame.batch.end();
     }
 
     @Override
