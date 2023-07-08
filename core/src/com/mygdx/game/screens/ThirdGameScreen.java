@@ -47,7 +47,7 @@ public class ThirdGameScreen implements Screen {
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
         ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
-        hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), 100, 100);
+        hpText = new TextView(myGdxGame.gameFontLarge1.bitmapFont, String.valueOf(XP), 100, 200);
 
         components.add(bg);
         components.add(rightTopBg);
