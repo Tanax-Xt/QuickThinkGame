@@ -67,4 +67,8 @@ public abstract class UiComponent {
         return y;
     }
 
+    public void update() {
+
+    }
+
 }
