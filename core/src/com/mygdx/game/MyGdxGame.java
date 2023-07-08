@@ -27,6 +27,7 @@ public class MyGdxGame extends Game {
 	public CustomFont defaultFont;
 	public CustomFont gameFont;
 	public CustomFont largeFont;
+	public CustomFont largeGameFont;
 	public Vector3 touch;
 
 	@Override
@@ -38,6 +39,7 @@ public class MyGdxGame extends Game {
 
 		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 		gameFont = new CustomFont(40, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
+		largeGameFont = new CustomFont(120, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 
