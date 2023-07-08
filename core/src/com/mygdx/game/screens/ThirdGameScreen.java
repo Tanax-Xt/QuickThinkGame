@@ -58,7 +58,7 @@ public class ThirdGameScreen implements Screen {
         components.add(hpText);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
-        for (int i = 0; i < 10; i++) initItems(i);
+        for (int i = 0; i < 7; i++) initItems(i);
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
@@ -73,7 +73,7 @@ public class ThirdGameScreen implements Screen {
         int itemNum = new Random().nextInt(2);
         String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 100 * (i % 2 + 1)), 3 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 4 * borderPosition), itemNum, onKillItemListener);
+        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1)), 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition), itemNum, onKillItemListener);
 
         element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class ThirdGameScreen implements Screen {
                     if (element.getTypeItem() == 1) XP++;
                     else XP--;
                     element.isActive = false;
-                    element.isVisible = false;
+                    element.actorImgView.y = -element.height;
                     hpText.setText(String.valueOf(XP));
                 }
             }
@@ -123,9 +123,7 @@ public class ThirdGameScreen implements Screen {
             item.update();
             if (item.getY() < borderPosition) {
                 if (item.isActive) {
-                    if (item.getTypeItem() == 1) {
-                        XP++;
-                    } else XP--;
+                    if (item.getTypeItem() == 0) XP--;
                     hpText.setText(String.valueOf(XP));
                 }
                 item.isActive = false;

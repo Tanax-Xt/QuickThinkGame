@@ -17,7 +17,6 @@ public class Item {
     int typeItem = 1;
     int velocityY = 10;
     public boolean isActive = true;
-    public boolean isVisible = true;
 
     public Item(Texture texture, int x, int y, int type, OnKillItemListener onKillItemListener) {
         this.x = x;
