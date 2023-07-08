@@ -7,7 +7,7 @@ import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.UiComponent;
 
 public class Item {
-    UiComponent.OnClickListener onClickListener;
+    OnKillItemListener onKillItemListener;
     public ImageView actorImgView;
     int x;
     int y;
@@ -16,12 +16,16 @@ public class Item {
     // 1 - apple, 0 - ball
     int typeItem = 1;
     int velocityY = 10;
+    public boolean isActive = true;
+    public boolean isVisible = true;
 
-    public Item(Texture texture, int x, int y, int type) {
+    public Item(Texture texture, int x, int y, int type, OnKillItemListener onKillItemListener) {
         this.x = x;
         this.y = y;
         this.typeItem = type;
         actorImgView = new ImageView(x, y, width, height, texture);
+        this.onKillItemListener = onKillItemListener;
+        actorImgView.setOnClickListener(itemOnClicked);
     }
 
     public void update() {
@@ -34,5 +38,19 @@ public class Item {
 
     public int getTypeItem() {
         return typeItem;
+    }
+
+    UiComponent.OnClickListener itemOnClicked = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            if (!isActive) return;
+            isActive = false;
+            actorImgView.setImgTexture(new Texture("images/left.png"));
+            onKillItemListener.onKill();
+        }
+    };
+
+    public interface OnKillItemListener {
+        void onKill();
     }
 }

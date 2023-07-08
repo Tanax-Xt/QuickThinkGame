@@ -22,4 +22,8 @@ public class TextView extends UiComponent {
     public void draw(SpriteBatch spriteBatch) {
         font.draw(spriteBatch, text, x, y);
     }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

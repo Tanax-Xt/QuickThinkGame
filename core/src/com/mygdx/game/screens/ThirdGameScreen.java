@@ -29,9 +29,9 @@ public class ThirdGameScreen implements Screen {
     private float timer = 300f;
     final int borderPosition = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int XP = 0;
-    private Timer.Task createObjectTask;
+    private final Timer.Task createObjectTask;
     private float intervalTimer = 0f;
-
+    TextView hpText;
 
     public ThirdGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -47,7 +47,7 @@ public class ThirdGameScreen implements Screen {
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
         ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
-        TextView hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Integer.toString(XP), 100, 100);
+        hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), 100, 100);
 
         components.add(bg);
         components.add(rightTopBg);
@@ -58,29 +58,38 @@ public class ThirdGameScreen implements Screen {
         components.add(hpText);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
-        for (int i = 0; i < 10; i++) {
-            int itemNum = new Random().nextInt(2);
-            String itemTitle = itemNum == 1 ? "apple" : "ball";
-            Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-            Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 100 * (i % 2 + 1)), 3 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 4 * borderPosition), itemNum);
-            itemsComponents.add(element);
-            components.add(element.actorImgView);
-        }
+        for (int i = 0; i < 10; i++) initItems(i);
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
-                for (int i = 0; i < 3; i++) {
-                    int itemNum = new Random().nextInt(2);
-                    String itemTitle = itemNum == 1 ? "apple" : "ball";
-                    Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-                    Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 100 * (i % 2 + 1)), 3 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 4 * borderPosition), itemNum);
-                    itemsComponents.add(element);
-                    components.add(element.actorImgView);
-                }
+                for (int i = 0; i < 3; i++) initItems(i);
             }
         };
 
         Timer.schedule(createObjectTask, 1f, 1f);
+    }
+
+    public void initItems(int i) {
+        int itemNum = new Random().nextInt(2);
+        String itemTitle = itemNum == 1 ? "apple" : "ball";
+        Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
+        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 100 * (i % 2 + 1)), 3 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 4 * borderPosition), itemNum, onKillItemListener);
+
+        element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
+            @Override
+            public void onClick() {
+                if (element.isActive) {
+                    if (element.getTypeItem() == 1) XP++;
+                    else XP--;
+                    element.isActive = false;
+                    element.isVisible = false;
+                    hpText.setText(String.valueOf(XP));
+                }
+            }
+        });
+
+        itemsComponents.add(element);
+        components.add(element.actorImgView);
     }
 
     @Override
@@ -100,6 +109,7 @@ public class ThirdGameScreen implements Screen {
         timer -= Gdx.graphics.getDeltaTime();
         if (timer < 0) {
             timer = 0;
+            MemoryLoader.saveResultThirdGame(XP);
             myGdxGame.setScreen(myGdxGame.gameOverScreen);
         }
 
@@ -112,12 +122,16 @@ public class ThirdGameScreen implements Screen {
         for (Item item: itemsComponents) {
             item.update();
             if (item.getY() < borderPosition) {
-                if (item.getTypeItem() == 1) {
-                    XP++;
-                } else XP--;
+                if (item.isActive) {
+                    if (item.getTypeItem() == 1) {
+                        XP++;
+                    } else XP--;
+                    hpText.setText(String.valueOf(XP));
+                }
+                item.isActive = false;
+
             }
         }
-
 
         ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
         myGdxGame.camera.update();
@@ -125,7 +139,7 @@ public class ThirdGameScreen implements Screen {
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
 
         for (UiComponent component: components) {
-            component.draw(myGdxGame.batch);
+            if (component.isVisible) component.draw(myGdxGame.batch);
         }
 
         myGdxGame.batch.end();
@@ -162,4 +176,12 @@ public class ThirdGameScreen implements Screen {
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
     };
+
+    Item.OnKillItemListener onKillItemListener = new Item.OnKillItemListener() {
+        @Override
+        public void onKill() {
+            Gdx.app.debug("onKill", "killed");
+        }
+    };
+
 }
