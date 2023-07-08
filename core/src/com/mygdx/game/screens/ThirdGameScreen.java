@@ -41,13 +41,13 @@ public class ThirdGameScreen implements Screen {
         components = new ArrayList<>();
         itemsComponents = new ArrayList<>();
 
-        ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
+        ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "images/chooseright.png");
         TextView clickText = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "Click!", GameSettings.SCR_WIDTH / 2 - 150, 200);
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
         ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
-        hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), 100, 100);
+        hpText = new TextView(myGdxGame.gameFontLarge1.bitmapFont, String.valueOf(XP), 100, 200);
 
         components.add(bg);
         components.add(rightTopBg);
@@ -58,7 +58,7 @@ public class ThirdGameScreen implements Screen {
         components.add(hpText);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
-        for (int i = 0; i < 10; i++) initItems(i);
+        for (int i = 0; i < 7; i++) initItems(i);
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
@@ -73,7 +73,7 @@ public class ThirdGameScreen implements Screen {
         int itemNum = new Random().nextInt(2);
         String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 100 * (i % 2 + 1)), 3 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 4 * borderPosition), itemNum, onKillItemListener);
+        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1)), 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition), itemNum, onKillItemListener);
 
         element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
@@ -82,7 +82,7 @@ public class ThirdGameScreen implements Screen {
                     if (element.getTypeItem() == 1) XP++;
                     else XP--;
                     element.isActive = false;
-                    element.isVisible = false;
+                    element.actorImgView.y = -element.height;
                     hpText.setText(String.valueOf(XP));
                 }
             }
@@ -123,9 +123,7 @@ public class ThirdGameScreen implements Screen {
             item.update();
             if (item.getY() < borderPosition) {
                 if (item.isActive) {
-                    if (item.getTypeItem() == 1) {
-                        XP++;
-                    } else XP--;
+                    if (item.getTypeItem() == 0) XP--;
                     hpText.setText(String.valueOf(XP));
                 }
                 item.isActive = false;
