@@ -18,7 +18,11 @@ public class Character {
 
     protected int x;
     protected int y;
-    int ex = 0;
+    final Texture textureCactus = new Texture("icons/game1/cactus.png");
+    final Texture textureFlower = new Texture("icons/game1/flower.png");
+
+
+    int ex = 1;
     public int width = height = (int) (SCR_WIDTH * 0.35);
     public int height;
 
@@ -26,28 +30,43 @@ public class Character {
 //    protected float velocityY;
 //    protected int textureStage;
 
-    public boolean isAlive;
+//    public boolean isAlive;
+    isHitListener isHitListenerCharacter;
 
-    Character(Texture texture, int x, int y) {
+    public Character(Texture texture, int x, int y, isHitListener isHitListenerCharacter) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         actorImgView = new ImageView(x, y, width, height, texture);
 //        isAlive = true;
+        this.isHitListenerCharacter = isHitListenerCharacter;
+        actorImgView.setOnClickListener(isHitListener);
     }
 
-    public int update() {
+    public void setEx(int ex) {
+        this.ex = ex;
+    }
+
+    public int getEx() {
         return ex;
     }
 
-//    public void update() {
-//        actorImgView.x = x += velocityX;
-//        actorImgView.y = y += velocityY;
-//
-//        if (x < 0 || x > SCR_WIDTH - width) velocityX = -velocityX;
-//        if (y < 0 || y > SCR_HEIGHT - height) velocityY = -velocityY;
-//
-//        textureStage = (textureStage + 1) % texturesArray.size();
-//        actorImgView.setImgTexture(texturesArray.get(textureStage));
-//    }
+    UiComponent.OnClickListener isHitListener = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            isHitListenerCharacter.onClick();
+        }
+    };
+
+    public interface isHitListener {
+        void onClick();
+    }
+
+    public void update() {
+        if (this.ex == 1)
+            texture = textureFlower;
+        else
+            texture = textureCactus;
+        actorImgView = new ImageView(x, y, width, height, texture);
+    }
 }
