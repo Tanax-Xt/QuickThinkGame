@@ -34,7 +34,7 @@ public class SettingsScreen implements Screen {
         ImageView bgSettings = new ImageView(0, GameSettings.SCR_HEIGHT - bgSettingsHeight, GameSettings.SCR_WIDTH, bgSettingsHeight, "backgrounds/settingsbg.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
-        TextView musicTitle = new TextView(myGdxGame.gameFont.bitmapFont, "Music:", 100, 200);
+        TextView musicTitle = new TextView(myGdxGame.gameFont2.bitmapFont, "Music:", 100, 200);
         ImageView arrowLeft = new ImageView(300, 200, 64, 64, "images/left.png");
         ImageView arrowRight = new ImageView(600, 200, 64, 64, "images/right.png");
 
