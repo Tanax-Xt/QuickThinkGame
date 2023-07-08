@@ -19,7 +19,7 @@ public class FirstGameScreen implements Screen {
     private int gameScore;
 
     int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
-    int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
+    int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
 
     public FirstGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -47,7 +47,7 @@ public class FirstGameScreen implements Screen {
 //        clickCarefullyBtn.setOnClickListener(onClickBtnCarefully);
 //        collectOrderBtn.setOnClickListener(onClickBtnCollectOrder);
 //        chooseRightBtn.setOnClickListener(onClickBtnChooseRight);
-        game1BG.setOnClickListener(onClickBtnReturn);
+        returnMenu.setOnClickListener(onClickBtnReturn);
     }
 
     @Override
