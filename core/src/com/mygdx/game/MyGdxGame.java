@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +16,7 @@ import com.mygdx.game.screens.SettingsScreen;
 import com.mygdx.game.screens.ThirdGameScreen;
 import com.mygdx.game.utils.CustomFont;
 import com.mygdx.game.utils.GameSettings;
+import com.mygdx.game.utils.MemoryLoader;
 
 public class MyGdxGame extends Game {
 	public SpriteBatch batch;
@@ -32,6 +35,7 @@ public class MyGdxGame extends Game {
 	public CustomFont largeFont;
 	public CustomFont gameOverBlueFont;
 	public Vector3 touch;
+	public Music music;
 
 	@Override
 	public void create () {
@@ -39,6 +43,10 @@ public class MyGdxGame extends Game {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
 		camera.setToOrtho(false, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music" + MemoryLoader.loadActiveMusic() + ".mp3"));
+		music.setLooping(true);
+		music.play();
 
 		defaultFont = new CustomFont(40, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 		gameFont1 = new CustomFont(100, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
@@ -62,5 +70,6 @@ public class MyGdxGame extends Game {
 	@Override
 	public void dispose () {
 		batch.dispose();
+		music.dispose();
 	}
 }

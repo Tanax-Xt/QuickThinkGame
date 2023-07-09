@@ -14,6 +14,16 @@ public class MemoryLoader {
         prefs.flush();
     }
 
+    public static int loadActiveMusic() {
+        if (prefs.contains("musicActive")) return prefs.getInteger("musicActive");
+        return 1;
+    }
+
+    public static void saveActiveMusic(int num) {
+        prefs.putInteger("musicActive", num);
+        prefs.flush();
+    }
+
     public static boolean loadMusicState() {
         if (prefs.contains("musicState"))
             return Boolean.parseBoolean(prefs.getString("musicState"));

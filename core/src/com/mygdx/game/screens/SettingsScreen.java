@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ui.ImageView;
@@ -25,19 +26,30 @@ public class SettingsScreen implements Screen {
     int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.28);
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int activeIcon = 1;
+    int activeMusic = 1;
+    ArrayList<Music> musicList;
+    TextView musicTitle;
+    TextView audioNumText;
 
     public SettingsScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
+        activeMusic = MemoryLoader.loadActiveMusic();
 
         components = new ArrayList<>();
         iconsList = new ArrayList<>();
+        musicList = new ArrayList<>();
 
         ImageView bgSettings = new ImageView(0, GameSettings.SCR_HEIGHT - bgSettingsHeight, GameSettings.SCR_WIDTH, bgSettingsHeight, "backgrounds/settingsbg.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
-        TextView musicTitle = new TextView(myGdxGame.gameFont2.bitmapFont, "Music:", 100, 200);
-        ImageView arrowLeft = new ImageView(300, 200, 64, 64, "images/left.png");
-        ImageView arrowRight = new ImageView(600, 200, 64, 64, "images/right.png");
+
+        musicTitle = new TextView(myGdxGame.gameFont2.bitmapFont, "Music:", 200, 200);
+        ImageView arrowLeft = new ImageView(500, 130, 64, musicTitle.height, "images/left.png");
+        ImageView arrowRight = new ImageView(700, 130, 64, musicTitle.height, "images/right.png");
+        audioNumText = new TextView(myGdxGame.gameFont2.bitmapFont, String.valueOf(activeMusic), 610, 200);
+
+        arrowLeft.setOnClickListener(onClickBtnArrowLeft);
+        arrowRight.setOnClickListener(onClickBtnArrowRight);
 
         components.add(bgSettings);
         components.add(returnMenu);
@@ -45,6 +57,8 @@ public class SettingsScreen implements Screen {
         components.add(musicTitle);
         components.add(arrowLeft);
         components.add(arrowRight);
+        components.add(audioNumText);
+
 
         bgSettings.setOnClickListener(onClickBtnReturn);
     }
@@ -128,10 +142,32 @@ public class SettingsScreen implements Screen {
 
     }
 
+    public void changeMusic(int activeMusic) {
+        myGdxGame.music.stop();
+        myGdxGame.music.dispose();
+        myGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("audio/music" + activeMusic + ".mp3"));
+        myGdxGame.music.setLooping(true);
+        myGdxGame.music.play();
+        audioNumText.setText(String.valueOf(activeMusic));
+    }
+
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
             myGdxGame.setScreen(myGdxGame.menuScreen);
+        }
+    };
+
+    UiComponent.OnClickListener onClickBtnArrowLeft = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            if (activeMusic > 1) changeMusic(--activeMusic);
+        }
+    };
+    UiComponent.OnClickListener onClickBtnArrowRight = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            if (activeMusic < 6) changeMusic(++activeMusic);
         }
     };
 }
