@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actorsGame3.Item;
-import com.mygdx.game.ui.Blueout;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
@@ -16,7 +15,6 @@ import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 public class ThirdGameScreen implements Screen {
@@ -31,7 +29,7 @@ public class ThirdGameScreen implements Screen {
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ПРИ ПЕРЕХОДЕ В GAME OVER
-    private float timer = 30f;
+    private float timer = 3f;
     final int borderPosition = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int XP = 0;
     private Timer.Task createObjectTask;
@@ -52,15 +50,12 @@ public class ThirdGameScreen implements Screen {
     public ThirdGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
 
-        MemoryLoader.saveResultThirdGame(0);
-//        int activeIcon = MemoryLoader.loadIconState();
-
         components = new ArrayList<>();
         itemsComponents = new ArrayList<>();
         itemsUIcomponents = new ArrayList<>();
         //uiComponentsEndOfGame = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle("Your points!", myGdxGame.gameOverBlueFont.bitmapFont);
+        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont);
         uiComponentsEndOfGame = whiteRect.getComponents();
 
         //pointsView = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Your points!", 300, 700);
@@ -193,6 +188,7 @@ public class ThirdGameScreen implements Screen {
         if (timer < 0) {
             timer = 0;
             isGameFinished = true;
+            whiteRect.setResult(String.valueOf(XP));
         }
 
         Timer.schedule(new Timer.Task() {
@@ -238,7 +234,7 @@ public class ThirdGameScreen implements Screen {
                 component.isVisible = false;
             }
             itemsComponents.clear();
-            timer = 30f;
+            timer = 3f;
             XP = 0;
             intervalTimer = 0f;
             isGameFinished = false;

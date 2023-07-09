@@ -47,7 +47,7 @@ public class MyGdxGame extends Game {
 		gameFontLarge2 = new CustomFont(130, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 //		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
-		gameOverBlueFont = new CustomFont(100, "fonts/Kodchasan-Light.ttf", new Color(0, 0, 255, 1));
+		gameOverBlueFont = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));
 
 		menuScreen = new MenuScreen(this);
 		firstGameScreen = new FirstGameScreen(this);

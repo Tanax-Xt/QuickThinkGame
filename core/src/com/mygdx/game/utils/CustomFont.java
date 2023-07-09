@@ -12,7 +12,7 @@ public class CustomFont {
     public CustomFont(int size, String path, Color color) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(path));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.color = new Color(1, 1, 1, 1);
+        parameter.color = color;
         parameter.size = size;
         parameter.borderColor = Color.BLACK;
         parameter.borderWidth = 1;
