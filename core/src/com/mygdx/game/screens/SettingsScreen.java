@@ -26,7 +26,7 @@ public class SettingsScreen implements Screen {
     int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.28);
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int activeIcon = 1;
-    int activeMusic = 1;
+    int activeMusic;
     ArrayList<Music> musicList;
     TextView musicTitle;
     TextView audioNumText;
@@ -46,7 +46,7 @@ public class SettingsScreen implements Screen {
         musicTitle = new TextView(myGdxGame.gameFont2.bitmapFont, "Music:", 200, 200);
         ImageView arrowLeft = new ImageView(500, 130, 64, musicTitle.height, "images/left.png");
         ImageView arrowRight = new ImageView(700, 130, 64, musicTitle.height, "images/right.png");
-        audioNumText = new TextView(myGdxGame.gameFont2.bitmapFont, String.valueOf(activeMusic), 610, 200);
+        audioNumText = new TextView(myGdxGame.gameFont2.bitmapFont, activeMusic == 0 ? "-" : String.valueOf(activeMusic), 610, 200);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
         arrowRight.setOnClickListener(onClickBtnArrowRight);
@@ -85,6 +85,7 @@ public class SettingsScreen implements Screen {
     @Override
     public void show() {
         activeIcon = MemoryLoader.loadIconState();
+        activeMusic = MemoryLoader.loadActiveMusic();
 
         for (int i = 1; i <= 3; i++) initImages(i, i);
         for (int i = 4; i <= 6; i++) initImages(i,i - 3);
@@ -143,11 +144,14 @@ public class SettingsScreen implements Screen {
     }
 
     public void changeMusic(int activeMusic) {
-        myGdxGame.music.stop();
-        myGdxGame.music.dispose();
+        if (myGdxGame.music != null) {
+            myGdxGame.music.stop();
+            myGdxGame.music.dispose();
+        }
         myGdxGame.music = Gdx.audio.newMusic(Gdx.files.internal("audio/music" + activeMusic + ".mp3"));
         myGdxGame.music.setLooping(true);
         myGdxGame.music.play();
+        MemoryLoader.saveActiveMusic(activeMusic);
         audioNumText.setText(String.valueOf(activeMusic));
     }
 
@@ -162,6 +166,12 @@ public class SettingsScreen implements Screen {
         @Override
         public void onClick() {
             if (activeMusic > 1) changeMusic(--activeMusic);
+            else if (activeMusic - 1 == 0) {
+                myGdxGame.music.dispose();
+                activeMusic--;
+                MemoryLoader.saveActiveMusic(0);
+                audioNumText.setText("-");
+            }
         }
     };
     UiComponent.OnClickListener onClickBtnArrowRight = new UiComponent.OnClickListener() {
