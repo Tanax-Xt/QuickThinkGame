@@ -7,12 +7,12 @@ import com.mygdx.game.utils.GameSettings;
 
 import java.util.ArrayList;
 
-public class WhiteRectangle extends UiComponent {
+public class WhiteRectangle {
 
-    int whiteRectHigh = (int) (GameSettings.SCR_HEIGHT * 0.75);
-    int whiteRectWidth = (int) (GameSettings.SCR_WIDTH * 0.75);
-    int whiteRectPositionX = (int) (GameSettings.SCR_WIDTH / 2 - 0.5);
-    int whiteRectPositionY = (int) (GameSettings.SCR_HEIGHT / 2 - 0.5);
+    int whiteRectHigh = (int) (GameSettings.SCR_HEIGHT );
+    int whiteRectWidth = (int) (GameSettings.SCR_WIDTH / 3);
+    int whiteRectPositionX = (int) (GameSettings.SCR_WIDTH / 2 - whiteRectWidth);
+    int whiteRectPositionY = (int) (GameSettings.SCR_HEIGHT / 2);
 
     TextView pointsView;
     ImageView whiteRectangle;
@@ -20,12 +20,8 @@ public class WhiteRectangle extends UiComponent {
     ArrayList<UiComponent> components;
 
     public WhiteRectangle(String points, BitmapFont font) {
-        super((int) (GameSettings.SCR_HEIGHT * 0.75),
-                (int) (GameSettings.SCR_WIDTH * 0.75),
-                (int) (GameSettings.SCR_WIDTH / 2 - 0.5),
-                (int) (GameSettings.SCR_HEIGHT / 2 - 0.5));
 
-        ImageView whiteRectangle = new ImageView(100, whiteRectPositionY, 900, whiteRectWidth, "backgrounds/gameoverWhiteRect.png");
+        ImageView whiteRectangle = new ImageView(whiteRectPositionX, whiteRectPositionY, whiteRectWidth, whiteRectHigh, "backgrounds/gameoverWhiteRect.png");
         pointsView = new TextView(font, "Your points!", 300, 700);
 
         components = new ArrayList<>();
@@ -39,8 +35,7 @@ public class WhiteRectangle extends UiComponent {
         return components;
     }
 
-    @Override
-    public void draw(SpriteBatch spriteBatch) {
+/*    public void draw(SpriteBatch spriteBatch) {
 
-    }
+    }*/
 }
