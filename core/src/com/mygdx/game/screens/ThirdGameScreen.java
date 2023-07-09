@@ -22,6 +22,7 @@ public class ThirdGameScreen implements Screen {
     ArrayList<UiComponent> components;
     ArrayList<Item> itemsComponents;
     ArrayList<UiComponent> itemsUIcomponents;
+    ImageView rightIcon;
     int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
     int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
@@ -39,7 +40,7 @@ public class ThirdGameScreen implements Screen {
         this.myGdxGame = myGdxGame;
 
         MemoryLoader.saveResultThirdGame(0);
-        int activeIcon = MemoryLoader.loadIconState();
+//        int activeIcon = MemoryLoader.loadIconState();
 
         components = new ArrayList<>();
         itemsComponents = new ArrayList<>();
@@ -50,13 +51,13 @@ public class ThirdGameScreen implements Screen {
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
-        ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
+//        ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
         hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), 50, 200);
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(timer), 50, GameSettings.SCR_HEIGHT - rightIconBgHeight - 50);
 
         components.add(bg);
         components.add(rightTopBg);
-        components.add(rightIcon);
+//        components.add(rightIcon);
         components.add(returnMenu);
         components.add(clickText);
         components.add(border);
@@ -98,6 +99,9 @@ public class ThirdGameScreen implements Screen {
                 for (int i = 0; i < 3; i++) initItems(i);
             }
         };
+
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+        components.add(rightIcon);
 
         Timer.schedule(createObjectTask, 1f, 1f);
     }

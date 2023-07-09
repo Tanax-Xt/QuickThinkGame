@@ -32,13 +32,13 @@ public class FirstGameScreen implements Screen {
     private int gameScore;
     private int characterEx1;
     private int characterEx2;
+    ImageView rightIcon;
     private int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
     private int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
     private int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     private int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
 
     public FirstGameScreen(MyGdxGame myGdxGame) {
-        int activeIcon = MemoryLoader.loadIconState();
         this.myGdxGame = myGdxGame;
 
         components = new ArrayList<>();
@@ -46,7 +46,6 @@ public class FirstGameScreen implements Screen {
 
         ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
-        ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
 //        ImageView title = new ImageView(GameSettings.SCR_WIDTH / 2 - titleWidth / 2, (int) (GameSettings.SCR_HEIGHT - titleHeight * 1.5), titleWidth, titleHeight, "images/title.png");
 //        ImageView versionText = new ImageView(GameSettings.SCR_WIDTH / 2 - versionTextWidth / 2, versionTextHeight / 2, versionTextWidth, versionTextHeight, "images/version.png");
 //        ImageView clickCarefullyBtn = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - 0.5 * buttonWidth), GameSettings.SCR_HEIGHT / 2 - 80, buttonWidth, buttonHeight, "buttons/clickcarefully.png");
@@ -56,7 +55,6 @@ public class FirstGameScreen implements Screen {
 
         components.add(game1BG);
         components.add(returnMenu);
-        components.add(rightIcon);
 //        components.add(title);
 //        components.add(versionText);
 //        components.add(clickCarefullyBtn);
@@ -75,7 +73,9 @@ public class FirstGameScreen implements Screen {
         secondsToEnd = 60;
         gameScore = 0;
         score = new TextView(myGdxGame.gameFont1.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
-        time = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        time = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+        components.add(rightIcon);
         components.add(score);
         components.add(time);
         loadActors();
