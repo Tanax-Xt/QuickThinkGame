@@ -29,7 +29,7 @@ public class ThirdGameScreen implements Screen {
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ПРИ ПЕРЕХОДЕ В GAME OVER
-    private float timer = 30f;
+    private float timer = 3f;
     final int borderPosition = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int XP = 0;
     private Timer.Task createObjectTask;
@@ -37,6 +37,13 @@ public class ThirdGameScreen implements Screen {
     boolean isGameFinished = false;
     TextView hpText;
     TextView timerExpires;
+
+
+//    final int whiteRectHigh = (int) (GameSettings.SCR_HEIGHT * 0.75);
+//    final int whiteRectWidth = (int) (GameSettings.SCR_WIDTH * 0.75);
+//    final int whiteRectPositionX = (int) (GameSettings.SCR_WIDTH / 2 - 0.5);
+//    final int whiteRectPositionY = (int) (GameSettings.SCR_HEIGHT / 2 - 0.5);
+
     TextView pointsView;
     WhiteRectangle whiteRect;
 
@@ -46,28 +53,34 @@ public class ThirdGameScreen implements Screen {
         components = new ArrayList<>();
         itemsComponents = new ArrayList<>();
         itemsUIcomponents = new ArrayList<>();
+        //uiComponentsEndOfGame = new ArrayList<>();
 
         whiteRect = new WhiteRectangle(myGdxGame);
-        whiteRect.initRestartButton(onClickBtnRestart);
-        whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();
+
+        //pointsView = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Your points!", 300, 700);
+
 
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "images/chooseright.png");
         TextView clickText = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "Click!", GameSettings.SCR_WIDTH / 2 - 150, 200);
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
+//        ImageView rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + activeIcon + ".png");
         hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), 50, 200);
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(timer), 50, GameSettings.SCR_HEIGHT - rightIconBgHeight - 50);
-        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
 
         components.add(bg);
         components.add(rightTopBg);
-        components.add(rightIcon);
+//        components.add(rightIcon);
         components.add(returnMenu);
         components.add(clickText);
         components.add(border);
         components.add(hpText);
+
+        //uiComponentsEndOfGame.add(new Blueout());
+        //uiComponentsEndOfGame.add(whiteRectangle);
+        //uiComponentsEndOfGame.add(pointsView);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
     }
@@ -95,22 +108,21 @@ public class ThirdGameScreen implements Screen {
         itemsUIcomponents.add(element.actorImgView);
     }
 
-    public void generateItems() {
+    @Override
+    public void show() {
         for (int i = 0; i < 7; i++) initItems(i);
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
-                if (!isGameFinished) for (int i = 0; i < 3; i++) initItems(i);
+                for (int i = 0; i < 3; i++) initItems(i);
             }
         };
 
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+        components.add(rightIcon);
 
         Timer.schedule(createObjectTask, 1f, 1f);
         components.add(timerExpires);
-    }
-    @Override
-    public void show() {
-        generateItems();
     }
 
     @Override
@@ -118,32 +130,23 @@ public class ThirdGameScreen implements Screen {
         if (Gdx.input.justTouched()) {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);
-            if (!isGameFinished) {
-                for (UiComponent component : components) {
-                    if (component.isVisible)
-                        component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-                }
-                for (UiComponent component : itemsUIcomponents) {
-                    if (component.isVisible)
-                        component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-                }
+            for (UiComponent component : components) {
+                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
-            for (UiComponent component : uiComponentsEndOfGame) {
+            for (UiComponent component : itemsUIcomponents) {
                 if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
         }
 
-        if (!isGameFinished) {
-            initMainTimer();
-            initGenerateItemsTimer();
-        }
+        initMainTimer();
+        initGenerateItemsTimer();
 
         for (Item item: itemsComponents) {
             if (!isGameFinished) {
                 item.update();
                 if (item.getY() < borderPosition) {
                     if (item.isActive) {
-                        if (item.getTypeItem() == 1) XP--;
+                        if (item.getTypeItem() == 0) XP--;
                         hpText.setText(String.valueOf(XP));
                     }
                     item.isActive = false;
@@ -185,7 +188,6 @@ public class ThirdGameScreen implements Screen {
         if (timer < 0) {
             timer = 0;
             isGameFinished = true;
-            Timer.instance().clear();
             whiteRect.setResult(String.valueOf(XP));
         }
 
@@ -222,24 +224,20 @@ public class ThirdGameScreen implements Screen {
         Timer.instance().clear();
     }
 
-    public void clearData() {
-        for (Item component: itemsComponents) {
-            component.actorImgView.imgTexture.dispose();
-        }
-        for (UiComponent component: itemsUIcomponents) {
-            component.isVisible = false;
-        }
-        itemsComponents.clear();
-        timer = 30f;
-        XP = 0;
-        intervalTimer = 3f;
-        isGameFinished = false;
-        Timer.instance().clear();
-    }
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
-            clearData();
+            for (Item component: itemsComponents) {
+                component.actorImgView.imgTexture.dispose();
+            }
+            for (UiComponent component: itemsUIcomponents) {
+                component.isVisible = false;
+            }
+            itemsComponents.clear();
+            timer = 3f;
+            XP = 0;
+            intervalTimer = 0f;
+            isGameFinished = false;
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
     };
@@ -251,10 +249,4 @@ public class ThirdGameScreen implements Screen {
         }
     };
 
-    UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
-        @Override
-        public void onClick() {
-            clearData();
-        }
-    };
 }
