@@ -15,7 +15,7 @@ public class Blueout extends UiComponent {
     public Blueout() {
         super(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
         Pixmap pixmap = new Pixmap((int) width, (int) height, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 75, 100, 0.33f);
+        pixmap.setColor(0, 0, 100, 0.33f);
         pixmap.fill();
         blueoutTexture = new Texture(pixmap);
     }
