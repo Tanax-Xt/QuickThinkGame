@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ImageView extends UiComponent {
-    Texture imgTexture;
+    public Texture imgTexture;
 
     public ImageView(int x, int y, int wight, int height, String imdSource) {
         super(x, y, wight, height);
