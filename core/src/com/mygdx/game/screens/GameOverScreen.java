@@ -52,7 +52,7 @@ public class GameOverScreen implements Screen {
             }
         }
 
-        ScreenUtils.clear(1, 1, 1, 1);
+        ScreenUtils.clear(0, 75, 100, 0.33f);
 
         myGdxGame.camera.update();
         myGdxGame.batch.begin();

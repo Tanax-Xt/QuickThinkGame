@@ -62,7 +62,6 @@ public class ThirdGameScreen implements Screen {
         components.add(clickText);
         components.add(border);
         components.add(hpText);
-        components.add(timerExpires);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
     }
@@ -104,6 +103,7 @@ public class ThirdGameScreen implements Screen {
         components.add(rightIcon);
 
         Timer.schedule(createObjectTask, 1f, 1f);
+        components.add(timerExpires);
     }
 
     @Override
@@ -119,26 +119,8 @@ public class ThirdGameScreen implements Screen {
             }
         }
 
-        timer -= Gdx.graphics.getDeltaTime();
-        if (timer < 0) {
-            timer = 0;
-            MemoryLoader.saveResultThirdGame(XP);
-            myGdxGame.setScreen(myGdxGame.gameOverScreen);
-        }
-
-        intervalTimer += Gdx.graphics.getDeltaTime();
-        if (intervalTimer >= 3f) {
-            intervalTimer -= 3f;
-            createObjectTask.run();
-        }
-
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                timerExpires.setText(String.valueOf((int) timer));
-            }
-        }, 2, 2);
-
+        initMainTimer();
+        initGenerateItemsTimer();
 
         for (Item item: itemsComponents) {
             item.update();
@@ -164,6 +146,30 @@ public class ThirdGameScreen implements Screen {
         }
 
         myGdxGame.batch.end();
+    }
+
+    public void initGenerateItemsTimer() {
+        intervalTimer += Gdx.graphics.getDeltaTime();
+        if (intervalTimer >= 3f) {
+            intervalTimer -= 3f;
+            createObjectTask.run();
+        }
+    }
+
+    public void initMainTimer() {
+        timer -= Gdx.graphics.getDeltaTime();
+        if (timer < 0) {
+            timer = 0;
+            MemoryLoader.saveResultThirdGame(XP);
+            myGdxGame.setScreen(myGdxGame.gameOverScreen);
+        }
+
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                timerExpires.setText(String.valueOf((int) timer));
+            }
+        }, 1, 1);
     }
 
     @Override

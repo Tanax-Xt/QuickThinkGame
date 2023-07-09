@@ -56,7 +56,6 @@ public abstract class UiComponent {
     public void setY(float vy) {
         this.y += vy;
         if (this.y < 0 || this.y + height > GameSettings.SCR_HEIGHT) this.y = (int) -vy;
-
     }
 
     public int getX() {
