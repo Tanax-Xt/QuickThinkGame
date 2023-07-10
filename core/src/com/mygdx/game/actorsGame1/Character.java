@@ -33,13 +33,13 @@ public class Character {
 //    public boolean isAlive;
     isHitListener isHitListenerCharacter;
 
-    public Character(Texture texture, int x, int y, isHitListener isHitListenerCharacter) {
+    public Character(Texture texture, int x, int y) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         actorImgView = new ImageView(x, y, width, height, texture);
 //        isAlive = true;
-        this.isHitListenerCharacter = isHitListenerCharacter;
+//        this.isHitListenerCharacter = isHitListenerCharacter;
         actorImgView.setOnClickListener(isHitListener);
     }
 
