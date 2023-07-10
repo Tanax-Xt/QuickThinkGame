@@ -40,7 +40,7 @@ public class Character {
         actorImgView = new ImageView(x, y, width, height, texture);
 //        isAlive = true;
 //        this.isHitListenerCharacter = isHitListenerCharacter;
-        actorImgView.setOnClickListener(isHitListener);
+//        actorImgView.setOnClickListener(isHitListener);
     }
 
     public void setEx(int ex) {
@@ -67,6 +67,7 @@ public class Character {
             texture = textureFlower;
         else
             texture = textureCactus;
-        actorImgView = new ImageView(x, y, width, height, texture);
+        this.actorImgView.setImgTexture(texture);
     }
+
 }

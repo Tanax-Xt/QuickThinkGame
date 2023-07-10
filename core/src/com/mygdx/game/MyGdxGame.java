@@ -57,7 +57,6 @@ public class MyGdxGame extends Game {
 		gameFont2 = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 		gameFontLarge1 = new CustomFont(200, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
 		gameFontLarge2 = new CustomFont(130, "fonts/Kodchasan-Light.ttf", new Color(1, 1, 1, 1));
-//		accentFont = new CustomFont(40, "fonts/arnamubi.ttf", new Color(1, 1, 1, 1));
 		largeFont = new CustomFont(70, "fonts/arnamu.ttf", new Color(1, 1, 1, 1));
 		gameOverBlueFont = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));
 		gameOverBlueSmallFont = new CustomFont(60, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));

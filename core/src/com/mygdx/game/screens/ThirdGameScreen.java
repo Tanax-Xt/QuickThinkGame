@@ -37,7 +37,6 @@ public class ThirdGameScreen implements Screen {
     boolean isGameFinished = false;
     TextView hpText;
     TextView timerExpires;
-    TextView pointsView;
     WhiteRectangle whiteRect;
     boolean isClickableFinishButtons = false;
 
@@ -73,7 +72,7 @@ public class ThirdGameScreen implements Screen {
 
     public void initItems(int i) {
         int itemNum = new Random().nextInt(2);
-        String itemTitle = itemNum == 1 && i % 2 == 0 ? "apple" : "ball";
+        String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
         final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1)), 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition), itemNum, onKillItemListener);
 
@@ -95,23 +94,22 @@ public class ThirdGameScreen implements Screen {
     }
 
     public void generateItems() {
-        for (int i = 0; i < 7; i++) initItems(i);
+        for (int i = 0; i < 6; i++) initItems(i);
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
-                if (!isGameFinished) for (int i = 0; i < 4; i++) initItems(i);
+                if (!isGameFinished) for (int i = 0; i < 3; i++) initItems(i);
             }
         };
 
-
         Timer.schedule(createObjectTask, 1f, 1f);
-        components.add(timerExpires);
     }
     @Override
     public void show() {
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         components.add(rightIcon);
         generateItems();
+        components.add(timerExpires);
     }
 
     @Override
@@ -142,13 +140,7 @@ public class ThirdGameScreen implements Screen {
         for (Item item: itemsComponents) {
             if (!isGameFinished) {
                 item.update();
-                if (item.getY() < borderPosition) {
-                    if (item.isActive) {
-                        if (item.getTypeItem() == 1) XP--;
-                        hpText.setText(String.valueOf(XP));
-                    }
-                    item.isActive = false;
-                }
+                if (item.getY() < borderPosition) item.isActive = false;
             }
         }
 
@@ -175,13 +167,20 @@ public class ThirdGameScreen implements Screen {
 
     public void initGenerateItemsTimer() {
         intervalTimer += Gdx.graphics.getDeltaTime();
-        if (intervalTimer >= 2f) {
-            intervalTimer -= 2f;
+        if (intervalTimer >= 3f) {
+            intervalTimer -= 3f;
             createObjectTask.run();
         }
     }
 
     public void initMainTimer() {
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                timerExpires.setText(String.valueOf((int) timer));
+            }
+        }, 1, 1);
+
         timer -= Gdx.graphics.getDeltaTime();
         if (timer < 0) {
             timer = 0;
@@ -193,15 +192,8 @@ public class ThirdGameScreen implements Screen {
                 public void run() {
                     isClickableFinishButtons = true;
                 }
-            }, 1);
+            }, 2);
         }
-
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                timerExpires.setText(String.valueOf((int) timer));
-            }
-        }, 1, 1);
     }
 
     @Override
@@ -221,7 +213,7 @@ public class ThirdGameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        clearData();
     }
 
     @Override
@@ -262,7 +254,10 @@ public class ThirdGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
-            if (isClickableFinishButtons) clearData();
+            if (isClickableFinishButtons) {
+                clearData();
+                generateItems();
+            }
         }
     };
 }

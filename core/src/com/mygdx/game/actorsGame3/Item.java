@@ -11,11 +11,11 @@ public class Item {
     public ImageView actorImgView;
     int x;
     int y;
-    public int width = height = 100;
-    public int height;
+    public int width = 120;
+    public int height = 120;
     // 1 - apple, 0 - ball
     int typeItem = 1;
-    int velocityY = 10;
+    int velocityY = 5;
     public boolean isActive = true;
 
     public Item(Texture texture, int x, int y, int type, OnKillItemListener onKillItemListener) {
