@@ -183,6 +183,8 @@ public class FirstGameScreen implements Screen {
             public void onClick() {
                 Gdx.app.debug("hit1", "is hit 1");
                 gameScore -= 1;
+                score.setText(String.valueOf(gameScore));
+
             }
         });
 
@@ -191,6 +193,8 @@ public class FirstGameScreen implements Screen {
             public void onClick() {
                 Gdx.app.debug("hit2", "is hit 2");
                 gameScore -= 1;
+                score.setText(String.valueOf(gameScore));
+
             }
         });
 
