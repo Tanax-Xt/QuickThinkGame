@@ -69,4 +69,5 @@ public class Character {
             texture = textureCactus;
         actorImgView = new ImageView(x, y, width, height, texture);
     }
+
 }

@@ -93,7 +93,6 @@ public class FirstGameScreen implements Screen {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);
             for (UiComponent component : components) {
-                if (component.isVisible)
                     component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
         }
@@ -178,6 +177,23 @@ public class FirstGameScreen implements Screen {
     void loadActors() {
         character1 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.6), (int) (GameSettings.SCR_HEIGHT * 0.15));
         character2 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.05), (int) (GameSettings.SCR_HEIGHT * 0.15));
+
+        character1.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
+            @Override
+            public void onClick() {
+                Gdx.app.debug("hit1", "is hit 1");
+                gameScore -= 1;
+            }
+        });
+
+        character2.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
+            @Override
+            public void onClick() {
+                Gdx.app.debug("hit2", "is hit 2");
+                gameScore -= 1;
+            }
+        });
+
         characterEx1 = character1.getEx();
         characterEx2 = character2.getEx();
         actorsComponents.add(character1);
@@ -185,7 +201,10 @@ public class FirstGameScreen implements Screen {
         components.add(character1.actorImgView);
         components.add(character2.actorImgView);
         components.add(timerExpires);
+
+
     }
+
 
     public void initGenerateItemsTimer() {
         intervalTimer += Gdx.graphics.getDeltaTime();
@@ -234,25 +253,25 @@ public class FirstGameScreen implements Screen {
 //        isGameFinished = false;
 //    }
 
-//    private Character.isHitListener isHitListenerCharacter1 = new Character.isHitListener() {
-//        @Override
-//        public void onClick() {
-//            Gdx.app.debug("hit1", "is hit 1");
-//            gameScore += character1.getEx();
-//            character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-//            character1.update();
-//        }
-//    };
+    private Character.isHitListener isHitListenerCharacter1 = new Character.isHitListener() {
+        @Override
+        public void onClick() {
+            Gdx.app.debug("hit1", "is hit 1");
+            gameScore += character1.getEx();
+            character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+            character1.update();
+        }
+    };
 
-//    private Character.isHitListener isHitListenerCharacter2 = new Character.isHitListener() {
-//        @Override
-//        public void onClick() {
-//            Gdx.app.debug("hit", "hit listener");
-//            gameScore += character2.getEx();
-//            character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-//            character2.update();
-//        }
-//    };
+    private Character.isHitListener isHitListenerCharacter2 = new Character.isHitListener() {
+        @Override
+        public void onClick() {
+            Gdx.app.debug("hit2", "is hit 2");
+            gameScore += character2.getEx();
+            character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+            character2.update();
+        }
+    };
 
 
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
