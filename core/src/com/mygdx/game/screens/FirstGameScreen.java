@@ -64,7 +64,7 @@ public class FirstGameScreen implements Screen {
 
         ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
-        timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
 
         components.add(game1BG);
         components.add(returnMenu);
@@ -75,8 +75,8 @@ public class FirstGameScreen implements Screen {
     public void show() {
         secondsToEnd = 60;
         gameScore = 0;
-        score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
-        time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
+        time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
 
 //        score = new TextView(myGdxGame.gameFont1.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
 //        time = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
@@ -134,7 +134,7 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+//        clearData();
     }
 
 //    public void initItems(int i) {
@@ -175,16 +175,17 @@ public class FirstGameScreen implements Screen {
 //    }
 
     void loadActors() {
-        character1 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.6), (int) (GameSettings.SCR_HEIGHT * 0.15));
-        character2 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.05), (int) (GameSettings.SCR_HEIGHT * 0.15));
+        character2 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.6), (int) (GameSettings.SCR_HEIGHT * 0.15));
+        character1 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.05), (int) (GameSettings.SCR_HEIGHT * 0.15));
 
         character1.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
                 Gdx.app.debug("hit1", "is hit 1");
-                gameScore -= 1;
+                gameScore += character1.getEx();
                 score.setText(String.valueOf(gameScore));
-
+                character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+                character1.update();
             }
         });
 
@@ -192,9 +193,10 @@ public class FirstGameScreen implements Screen {
             @Override
             public void onClick() {
                 Gdx.app.debug("hit2", "is hit 2");
-                gameScore -= 1;
+                gameScore += character2.getEx();
                 score.setText(String.valueOf(gameScore));
-
+                character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+                character2.update();
             }
         });
 
@@ -204,7 +206,7 @@ public class FirstGameScreen implements Screen {
         actorsComponents.add(character2);
         components.add(character1.actorImgView);
         components.add(character2.actorImgView);
-        components.add(timerExpires);
+//        components.add(timerExpires);
 
 
     }
@@ -245,14 +247,14 @@ public class FirstGameScreen implements Screen {
 //        for (Item component: itemsComponents) {
 //            component.actorImgView.imgTexture.dispose();
 //        }
-//        for (UiComponent component: itemsUIcomponents) {
+//        for (UiComponent component: components) {
 //            component.isVisible = false;
 //        }
 //        itemsComponents.clear();
 //        secondsToEnd = 30f;
 //        gameScore = 0;
 //        intervalTimer = 0f;
-//        isClickableFinishButtons = false;
+////        isClickableFinishButtons = false;
 //        Timer.instance().clear();
 //        isGameFinished = false;
 //    }

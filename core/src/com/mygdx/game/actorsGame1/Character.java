@@ -67,7 +67,7 @@ public class Character {
             texture = textureFlower;
         else
             texture = textureCactus;
-        actorImgView = new ImageView(x, y, width, height, texture);
+        this.actorImgView.setImgTexture(texture);
     }
 
 }
