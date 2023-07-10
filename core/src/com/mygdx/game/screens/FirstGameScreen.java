@@ -57,11 +57,6 @@ public class FirstGameScreen implements Screen {
         actorsComponents = new ArrayList<>();
         itemsComponents = new ArrayList<>();
 
-//        whiteRect = new WhiteRectangle(myGdxGame);
-//        whiteRect.initRestartButton(onClickBtnRestart);
-//        whiteRect.initReturnMenu(onClickBtnReturn);
-//        uiComponentsEndOfGame = whiteRect.getComponents();
-
         ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
@@ -69,10 +64,18 @@ public class FirstGameScreen implements Screen {
         components.add(game1BG);
         components.add(returnMenu);
         returnMenu.setOnClickListener(onClickBtnReturn);
+
+//        whiteRect = new WhiteRectangle(myGdxGame);
+//        whiteRect.initRestartButton(onClickBtnRestart);
+//        whiteRect.initReturnMenu(onClickBtnReturn);
+//        uiComponentsEndOfGame = whiteRect.getComponents();
+
+
     }
 
     @Override
     public void show() {
+
         secondsToEnd = 60;
         gameScore = 0;
         score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
