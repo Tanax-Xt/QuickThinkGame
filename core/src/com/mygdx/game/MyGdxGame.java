@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -41,6 +42,8 @@ public class MyGdxGame extends Game {
 
 	@Override
 	public void create () {
+
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		touch = new Vector3();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);

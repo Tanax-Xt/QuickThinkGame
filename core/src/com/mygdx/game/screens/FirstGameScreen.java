@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actorsGame1.Character;
-//import com.mygdx.game.actorsGame1.Flower;
 import com.mygdx.game.actorsGame3.Item;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.TextView;
@@ -38,7 +37,7 @@ public class FirstGameScreen implements Screen {
 
     final int bgHeight = GameSettings.SCR_HEIGHT;
     final int bgWidth = GameSettings.SCR_WIDTH;
-    private float secondsToEnd = 60f;
+    private float secondsToEnd = 30f;
     private int gameScore = 0;
     private int characterEx1;
     private int characterEx2;
@@ -61,33 +60,35 @@ public class FirstGameScreen implements Screen {
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
 
+        score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
+        time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+
+
         components.add(game1BG);
         components.add(returnMenu);
+        components.add(rightIcon);
+        components.add(score);
+        components.add(time);
         returnMenu.setOnClickListener(onClickBtnReturn);
-
-//        whiteRect = new WhiteRectangle(myGdxGame);
-//        whiteRect.initRestartButton(onClickBtnRestart);
-//        whiteRect.initReturnMenu(onClickBtnReturn);
-//        uiComponentsEndOfGame = whiteRect.getComponents();
-
-
+        loadActors();
     }
 
     @Override
     public void show() {
-
-        secondsToEnd = 60;
+//        components.clear();
+        ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
+        Gdx.app.debug("show", "is show");
+        render(0);
+        secondsToEnd = 30f;
         gameScore = 0;
-        score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
-        time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
 
-//        score = new TextView(myGdxGame.gameFont1.bitmapFont, "0 px", GameSettings.SCR_WIDTH / 2 - 60, (int) (GameSettings.SCR_HEIGHT * 0.7));
-//        time = new TextView(myGdxGame.gameFontLarge1.bitmapFont, "01:00", GameSettings.SCR_WIDTH / 2 - 220, (int) (GameSettings.SCR_HEIGHT * 0.8));        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
-        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
-        components.add(rightIcon);
+        score.setText(Integer.toString(gameScore), true);
+        time.setText(Float.toString(secondsToEnd), true);
+
         components.add(score);
         components.add(time);
-        loadActors();
+
     }
 
     @Override
@@ -132,7 +133,7 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void hide() {
-        secondsToEnd = 60f;
+        secondsToEnd = 30f;
         gameScore = 0;
     }
 
@@ -142,43 +143,6 @@ public class FirstGameScreen implements Screen {
 
     }
 
-//    public void initItems(int i) {
-//        int itemNum = new Random().nextInt(2);
-//        String itemTitle = itemNum == 1 && i % 2 == 0 ? "apple" : "ball";
-//        Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-//        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1)), 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition), itemNum, onKillItemListener);
-//
-//        element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
-//            @Override
-//            public void onClick() {
-//                if (element.isActive) {
-//                    if (element.getTypeItem() == 1) XP++;
-//                    else XP--;
-//                    element.isActive = false;
-//                    element.actorImgView.y = -element.height;
-//                    hpText.setText(String.valueOf(XP));
-//                }
-//            }
-//        });
-//
-//        itemsComponents.add(element);
-//        itemsUIcomponents.add(element.actorImgView);
-//    }
-//
-//    public void generateItems() {
-//        for (int i = 0; i < 7; i++) initItems(i);
-//        createObjectTask = new Timer.Task() {
-//            @Override
-//            public void run() {
-//                if (!isGameFinished) for (int i = 0; i < 4; i++) initItems(i);
-//            }
-//        };
-//
-//
-//        Timer.schedule(createObjectTask, 1f, 1f);
-//        components.add(timerExpires);
-//    }
-
     void loadActors() {
         character2 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.6), (int) (GameSettings.SCR_HEIGHT * 0.15));
         character1 = new Character(new Texture("icons/game1/flower.png"), (int) (GameSettings.SCR_WIDTH * 0.05), (int) (GameSettings.SCR_HEIGHT * 0.15));
@@ -187,7 +151,7 @@ public class FirstGameScreen implements Screen {
             @Override
             public void onClick() {
                 gameScore += character1.getEx();
-                score.setText(String.valueOf(gameScore));
+                score.setText(String.valueOf(gameScore), true);
                 int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
                 if (modex == -1) {
                     character2.setEx(1);
@@ -207,7 +171,7 @@ public class FirstGameScreen implements Screen {
             @Override
             public void onClick() {
                 gameScore += character2.getEx();
-                score.setText(String.valueOf(gameScore));
+                score.setText(String.valueOf(gameScore), true);
                 int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
                 if (modex == -1) {
                     character1.setEx(1);
