@@ -27,6 +27,13 @@ public class SecondGameScreen implements Screen {
     ImageView rightIcon;
     ImageView cardImgView;
 
+    boolean isShow = false;
+
+    int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.35);
+    int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.20);
+
+    int bgSettingsHeight = (int) (GameSettings.SCR_HEIGHT * 0.4);
+
     int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
     int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
@@ -50,10 +57,14 @@ public class SecondGameScreen implements Screen {
 
         cardsIntegers = generateRandomArray();
         for (int i : cardsIntegers) {
-             Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
-             Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
-             cards.add(card);
+            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
+            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
+            cards.add(card);
         }
+
+        for (int i = 1; i <= 2; i++) initImages(i, i);
+        for (int i = 3; i <= 4; i++) initImages(i, i - 2);
+        for (int i = 5; i <= 6; i++) initImages(i, i - 4);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
     }
@@ -62,15 +73,17 @@ public class SecondGameScreen implements Screen {
     public void show() {
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         components.add(rightIcon);
+
+
         Timer.instance().scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                    if (activeCard > 1) cards.get(activeCard - 2).isVisible = false;
+                if (activeCard > 1) cards.get(activeCard - 2).isVisible = false;
                     cards.get(activeCard - 1).isVisible = true;
                     activeCard++;
                 }
         }, 1, 1);
-        if (activeCard > 6) Timer.instance().clear();
+
     }
 
     @Override
@@ -92,6 +105,22 @@ public class SecondGameScreen implements Screen {
                 //if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             //}
         }
+        if (activeCard > 6) {
+            if (!isShow) {
+                Timer.instance().clear();
+                Timer.instance().scheduleTask(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        cards.get(cards.size() - 1).isVisible = false;
+                        for (int i = 0; i < cards.size(); i++) {
+                            cards.get(i).isVisible2 = true;
+                        }
+                    }
+                }, 1);
+                isShow = true;
+            }
+        }
+
 /*
         if (!isGameFinished) {
             initMainTimer();
@@ -123,8 +152,9 @@ public class SecondGameScreen implements Screen {
         for (Card card: cards) {
             if (card.isVisible) card.cardImgView1.draw(myGdxGame.batch);
         }
-
-
+        for (Card card : cards) {
+            if (card.isVisible2) card.cardImgView2.draw(myGdxGame.batch);
+        }
 /*        for (UiComponent component: itemsUIcomponents) {
             if (component.isVisible) component.draw(myGdxGame.batch);
         }*/
@@ -137,7 +167,19 @@ public class SecondGameScreen implements Screen {
 
         myGdxGame.batch.end();
     }
+    public void initImages(int sourceI, int i) {
+        double isTop = sourceI != i ? 2.2 : 1;
+        int x = i % 2 != 0 ? (int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27)) : (int) ((GameSettings.SCR_WIDTH - iconWidth - 50));
+        int y =  (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
 
+        cards.get(sourceI - 1).loadImg2(x, y, iconWidth, iconHeight, new Texture("icons/game2/card" + sourceI + ".png"));
+//        cards.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
+//            @Override
+//            public void onClick() {
+//
+//            }
+//        });
+    }
     @Override
     public void resize(int width, int height) {
 
