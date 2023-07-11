@@ -132,12 +132,14 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        secondsToEnd = 60f;
+        gameScore = 0;
     }
 
     @Override
     public void dispose() {
 //        clearData();
+
     }
 
 //    public void initItems(int i) {
@@ -184,27 +186,42 @@ public class FirstGameScreen implements Screen {
         character1.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
-                Gdx.app.debug("hit1", "is hit 1");
                 gameScore += character1.getEx();
                 score.setText(String.valueOf(gameScore));
-                character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+                int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
+                if (modex == -1) {
+                    character2.setEx(1);
+                    character2.update();
+                    if (character1.getEx() == -1) {
+                        modex = 1;
+                    }
+//                    character2.actorImgView.setImgTexture(character2.texture);
+                }
+                character1.setEx(modex);
                 character1.update();
+//                character1.actorImgView.setImgTexture(character1.texture);
             }
         });
 
         character2.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
-                Gdx.app.debug("hit2", "is hit 2");
                 gameScore += character2.getEx();
                 score.setText(String.valueOf(gameScore));
-                character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+                int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
+                if (modex == -1) {
+                    character1.setEx(1);
+                    character1.update();
+                    if (character2.getEx() == -1) {
+                        modex = 1;
+                    }
+//                    character2.actorImgView.setImgTexture(character2.texture);
+                }
+                character2.setEx(modex);
                 character2.update();
             }
         });
 
-        characterEx1 = character1.getEx();
-        characterEx2 = character2.getEx();
         actorsComponents.add(character1);
         actorsComponents.add(character2);
         components.add(character1.actorImgView);
@@ -262,25 +279,25 @@ public class FirstGameScreen implements Screen {
 //        isGameFinished = false;
 //    }
 
-    private Character.isHitListener isHitListenerCharacter1 = new Character.isHitListener() {
-        @Override
-        public void onClick() {
-            Gdx.app.debug("hit1", "is hit 1");
-            gameScore += character1.getEx();
-            character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-            character1.update();
-        }
-    };
-
-    private Character.isHitListener isHitListenerCharacter2 = new Character.isHitListener() {
-        @Override
-        public void onClick() {
-            Gdx.app.debug("hit2", "is hit 2");
-            gameScore += character2.getEx();
-            character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-            character2.update();
-        }
-    };
+//    private Character.isHitListener isHitListenerCharacter1 = new Character.isHitListener() {
+//        @Override
+//        public void onClick() {
+//            Gdx.app.debug("hit1", "is hit 1");
+//            gameScore += character1.getEx();
+//            character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+//            character1.update();
+//        }
+//    };
+//
+//    private Character.isHitListener isHitListenerCharacter2 = new Character.isHitListener() {
+//        @Override
+//        public void onClick() {
+//            Gdx.app.debug("hit2", "is hit 2");
+//            gameScore += character2.getEx();
+//            character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
+//            character2.update();
+//        }
+//    };
 
 
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {

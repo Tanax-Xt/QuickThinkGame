@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Character {
     UiComponent.OnClickListener onClickListener;
-    Texture texture;
+    public Texture texture;
     public ImageView actorImgView;
 
     protected int x;
@@ -69,5 +69,4 @@ public class Character {
             texture = textureCactus;
         this.actorImgView.setImgTexture(texture);
     }
-
 }
