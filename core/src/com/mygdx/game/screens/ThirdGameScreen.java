@@ -57,7 +57,7 @@ public class ThirdGameScreen implements Screen {
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
         ImageView border = new ImageView(0, borderPosition, GameSettings.SCR_WIDTH, 10, "images/border.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
-        hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), GameSettings.SCR_WIDTH - 150, GameSettings.SCR_HEIGHT - rightIconBgHeight - 50);
+        hpText = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(XP), GameSettings.SCR_WIDTH - 200, GameSettings.SCR_HEIGHT - rightIconBgHeight - 50);
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(timer), 50, GameSettings.SCR_HEIGHT - rightIconBgHeight - 50);
 
         components.add(bg);

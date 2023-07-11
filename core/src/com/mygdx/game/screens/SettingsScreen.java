@@ -43,10 +43,10 @@ public class SettingsScreen implements Screen {
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
 
-        musicTitle = new TextView(myGdxGame.gameFont2.bitmapFont, "Music:", 200, 200);
+        musicTitle = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Music:", 200, 200);
         ImageView arrowLeft = new ImageView(500, 130, 64, musicTitle.height, "images/left.png");
         ImageView arrowRight = new ImageView(700, 130, 64, musicTitle.height, "images/right.png");
-        audioNumText = new TextView(myGdxGame.gameFont2.bitmapFont, activeMusic == 0 ? "-" : String.valueOf(activeMusic), 610, 200);
+        audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "-" : String.valueOf(activeMusic), 610, 200);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
         arrowRight.setOnClickListener(onClickBtnArrowRight);

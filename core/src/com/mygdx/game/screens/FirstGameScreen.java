@@ -62,12 +62,10 @@ public class FirstGameScreen implements Screen {
 
         score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
         time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
-        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
 
 
         components.add(game1BG);
         components.add(returnMenu);
-        components.add(rightIcon);
         components.add(score);
         components.add(time);
         returnMenu.setOnClickListener(onClickBtnReturn);
@@ -77,6 +75,7 @@ public class FirstGameScreen implements Screen {
     @Override
     public void show() {
 //        components.clear();
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
         Gdx.app.debug("show", "is show");
         render(0);
@@ -85,6 +84,7 @@ public class FirstGameScreen implements Screen {
 
         score.setText(Integer.toString(gameScore), true);
         time.setText(Float.toString(secondsToEnd), true);
+        components.add(rightIcon);
 
         components.add(score);
         components.add(time);
