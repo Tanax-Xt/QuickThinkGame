@@ -15,7 +15,7 @@ public class CustomFont {
         parameter.color = color;
         parameter.size = size;
         parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 1;
+        parameter.borderWidth = 0;
         parameter.borderStraight = true;
         parameter.characters = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>";
         bitmapFont = generator.generateFont(parameter);

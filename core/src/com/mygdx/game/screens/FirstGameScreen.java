@@ -132,12 +132,14 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        secondsToEnd = 60f;
+        gameScore = 0;
     }
 
     @Override
     public void dispose() {
 //        clearData();
+
     }
 
 //    public void initItems(int i) {
