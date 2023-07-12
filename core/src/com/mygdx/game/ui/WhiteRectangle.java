@@ -24,7 +24,7 @@ public class WhiteRectangle {
         pointsView = new TextView(secondFont, "Your points!", GameSettings.SCR_WIDTH / 2, GameSettings.SCR_HEIGHT - whiteRectHigh - 50);
         pointsView.x = GameSettings.SCR_WIDTH / 2 - pointsView.width / 2;
 
-        statsInfoResult = new TextView(firstFont, result, GameSettings.SCR_WIDTH / 2, GameSettings.SCR_HEIGHT - whiteRectHigh - 200);
+        statsInfoResult = new TextView(firstFont, result, -1, GameSettings.SCR_HEIGHT - whiteRectHigh - 200);
         statsInfoResult.x = GameSettings.SCR_WIDTH / 2 - pointsView.height;
 
         menuLink = new TextView(secondFont, "Menu", GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT - whiteRectHigh * 2);
@@ -63,6 +63,6 @@ public class WhiteRectangle {
 
     public void setResult(String result) {
         this.result = result;
-        statsInfoResult.setText(this.result);
+        statsInfoResult.setText(this.result, true);
     }
 }
