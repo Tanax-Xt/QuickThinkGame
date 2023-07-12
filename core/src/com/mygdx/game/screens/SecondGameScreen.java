@@ -50,7 +50,7 @@ public class SecondGameScreen implements Screen {
         cardsIntegers = new ArrayList<>();
         matrix = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect = new WhiteRectangle(myGdxGame.gameBoldBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
         whiteRect.initRestartButton(onClickBtnRestart);
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();

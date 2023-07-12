@@ -50,7 +50,7 @@ public class FirstGameScreen implements Screen {
         itemsComponents = new ArrayList<>();
         uiComponentsEndOfGame = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect = new WhiteRectangle(myGdxGame.gameBoldBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
         whiteRect.initRestartButton(onClickBtnRestart);
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();

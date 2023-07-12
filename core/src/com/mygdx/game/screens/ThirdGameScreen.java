@@ -29,7 +29,6 @@ public class ThirdGameScreen implements Screen {
     int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
-    // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА ПРИ ПЕРЕХОДЕ В GAME OVER
     private float timer = 30f;
     final int borderPosition = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int XP = 0;
@@ -105,7 +104,7 @@ public class ThirdGameScreen implements Screen {
     }
     @Override
     public void show() {
-        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect = new WhiteRectangle(myGdxGame.gameBoldBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
         whiteRect.initRestartButton(onClickBtnRestart);
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();

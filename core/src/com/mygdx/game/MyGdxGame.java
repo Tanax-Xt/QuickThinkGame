@@ -34,6 +34,7 @@ public class MyGdxGame extends Game {
 	public CustomFont largeFont;
 	public CustomFont gameOverBlueFont;
 	public CustomFont gameOverBlueSmallFont;
+	public CustomFont gameBoldBlueFont;
 	public Vector3 touch;
 	public Music music;
 
@@ -62,6 +63,7 @@ public class MyGdxGame extends Game {
 		bigBlueFont = new CustomFont(100, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));
 		gameOverBlueFont = new CustomFont(80, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));
 		gameOverBlueSmallFont = new CustomFont(60, "fonts/Kodchasan-Light.ttf", new Color(0, (float) 0.74, 1, 1));
+		gameBoldBlueFont = new CustomFont(100, "fonts/Kodchasan-SemiBold.ttf", new Color(0, (float) 0.74, 1, 1));
 
 		menuScreen = new MenuScreen(this);
 		firstGameScreen = new FirstGameScreen(this);
