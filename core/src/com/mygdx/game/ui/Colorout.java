@@ -7,19 +7,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.utils.GameSettings;
 
 public class Colorout extends UiComponent {
-
-    Texture blueoutTexture;
+    Texture coloroutTexture;
 
     public Colorout(Color color) {
         super(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
         Pixmap pixmap = new Pixmap((int) width, (int) height, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
         pixmap.fill();
-        blueoutTexture = new Texture(pixmap);
+        coloroutTexture = new Texture(pixmap);
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        spriteBatch.draw(blueoutTexture, x, y, width, height);
+        spriteBatch.draw(coloroutTexture, x, y, width, height);
     }
 }

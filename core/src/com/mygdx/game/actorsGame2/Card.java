@@ -8,10 +8,6 @@ public class Card {
     int y;
     public int type;
     int size1 = 500;
-    int size2 = 370;
-
-    int x2, y2, size3, size4;
-
     public boolean isVisible = false;
     public boolean isVisible2 = false;
 

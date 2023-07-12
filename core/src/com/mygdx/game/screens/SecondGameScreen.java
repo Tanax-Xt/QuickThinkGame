@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.actorsGame2.Card;
 import com.mygdx.game.ui.ImageView;
+import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.ui.WhiteRectangle;
 import com.mygdx.game.utils.GameSettings;
@@ -59,12 +60,14 @@ public class SecondGameScreen implements Screen {
         ImageView background = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/CollectOrderBG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame2.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
+        TextView repeatText = new TextView(myGdxGame.bigBlueFont.bitmapFont, "Repeat!", -1, 200);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
 
         components.add(background);
         components.add(returnMenu);
         components.add(rightTopBg);
+        components.add(repeatText);
     }
 
     @Override
