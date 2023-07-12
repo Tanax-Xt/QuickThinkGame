@@ -223,6 +223,8 @@ public class ThirdGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Gdx.app.debug("out", "out");
+
             Sounds.MenuButtons();
             clearData();
             myGdxGame.setScreen(myGdxGame.menuScreen);

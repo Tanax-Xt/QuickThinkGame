@@ -135,7 +135,7 @@ public class SecondGameScreen implements Screen {
                         for (int i = 0; i < matrix.size(); i++) {
                             matrix.get(i).isVisible2 = true;
                         }
-                        repeatText.setText("Repeat!");
+                        repeatText.setText("Repeat!", true);
                         repeatText.x += 50;
                     }
                 }, 1);
@@ -236,7 +236,7 @@ public class SecondGameScreen implements Screen {
     }
 
     public void clearData() {
-        repeatText.setText("Remember!");
+        repeatText.setText("Remember!", true);
         cardsIntegers.clear();
         Timer.instance().clear();
         for (Card card : cards) {
