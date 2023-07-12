@@ -1,7 +1,7 @@
 package com.mygdx.game.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.utils.GameSettings;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class WhiteRectangle {
     public TextView restartButton;
     ArrayList<UiComponent> components;
 
-    public WhiteRectangle(BitmapFont firstFont, BitmapFont secondFont) {
+    public WhiteRectangle(BitmapFont firstFont, BitmapFont secondFont, Color color) {
         whiteRectangle = new ImageView(whiteRectPositionX, whiteRectPositionY, whiteRectWidth, whiteRectHigh, "backgrounds/gameoverWhiteRect.png");
         pointsView = new TextView(secondFont, "Your points!", GameSettings.SCR_WIDTH / 2, GameSettings.SCR_HEIGHT - whiteRectHigh - 50);
         pointsView.x = GameSettings.SCR_WIDTH / 2 - pointsView.width / 2;
@@ -36,15 +36,10 @@ public class WhiteRectangle {
         restartButton.y += restartButton.height + 50;
 
         components = new ArrayList<>();
-        components.add(new Blueout());
+        components.add(new Colorout(color));
         components.add(whiteRectangle);
         components.add(pointsView);
         components.add(statsInfoResult);
-    }
-
-    public WhiteRectangle(BitmapFont firstFont, BitmapFont secondFont, BitmapFont thirdFont) {
-        this(firstFont, secondFont);
-        statsInfoResult.font = thirdFont;
     }
 
     public void initRestartButton(UiComponent.OnClickListener listener) {

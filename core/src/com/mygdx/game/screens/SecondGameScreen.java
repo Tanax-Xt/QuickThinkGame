@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
@@ -50,7 +51,7 @@ public class SecondGameScreen implements Screen {
         cardsIntegers = new ArrayList<>();
         matrix = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle(myGdxGame.gameBoldBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect = new WhiteRectangle(myGdxGame.gameBoldBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont, new Color((float) 0.99, (float) 0.91, (float) 0.06, 0.33f));
         whiteRect.initRestartButton(onClickBtnRestart);
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();
@@ -74,7 +75,7 @@ public class SecondGameScreen implements Screen {
         initData();
     }
 
-    public void initData () {
+    public void initData() {
         cardsIntegers = generateRandomArray();
         cards.clear();
         for (int i : cardsIntegers) {
@@ -170,7 +171,7 @@ public class SecondGameScreen implements Screen {
         if (sourceI > 4) isTop = 3.2;
 
         int x = i % 2 != 0 ? (int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27) + 75) : (int) ((GameSettings.SCR_WIDTH - iconWidth - 125));
-        int y =  (int) (1.24 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
+        int y = (int) (1.24 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
 
         Card card = new Card(new Texture("icons/game2/card" + sourceI + ".png"), x, y, sourceI);
         matrix.add(card);

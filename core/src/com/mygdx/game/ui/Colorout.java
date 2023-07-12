@@ -4,18 +4,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.utils.GameSettings;
 
-public class Blueout extends UiComponent {
+public class Colorout extends UiComponent {
 
     Texture blueoutTexture;
 
-    public Blueout() {
+    public Colorout(Color color) {
         super(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
         Pixmap pixmap = new Pixmap((int) width, (int) height, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 100, 0.33f);
+        pixmap.setColor(color);
         pixmap.fill();
         blueoutTexture = new Texture(pixmap);
     }
