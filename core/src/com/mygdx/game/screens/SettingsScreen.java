@@ -43,10 +43,10 @@ public class SettingsScreen implements Screen {
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
 
-        musicTitle = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Music:", 200, 200);
-        ImageView arrowLeft = new ImageView(500, 130, 64, musicTitle.height, "images/left.png");
-        ImageView arrowRight = new ImageView(700, 130, 64, musicTitle.height, "images/right.png");
-        audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "-" : String.valueOf(activeMusic), 610, 200);
+        musicTitle = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Music:", 100, 200);
+        ImageView arrowLeft = new ImageView(400, 130, 64, musicTitle.height, "images/left.png");
+        ImageView arrowRight = new ImageView(900, 130, 64, musicTitle.height, "images/right.png");
+        audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "off" : GameSettings.toString(activeMusic), -2, 200);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
         arrowRight.setOnClickListener(onClickBtnArrowRight);
@@ -64,7 +64,6 @@ public class SettingsScreen implements Screen {
     }
 
     public void initImages(final int sourceI, final int i) {
-        // костыль
         double isTop = sourceI != i ? 2.2 : 1;
         ImageView isActiveIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + sourceI + ".png");
         if (activeIcon == sourceI) activeIconImage = isActiveIconImage;
@@ -152,7 +151,7 @@ public class SettingsScreen implements Screen {
         myGdxGame.music.setLooping(true);
         myGdxGame.music.play();
         MemoryLoader.saveActiveMusic(activeMusic);
-        audioNumText.setText(String.valueOf(activeMusic));
+        audioNumText.setText(GameSettings.toString(activeMusic), -2);
     }
 
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
@@ -170,7 +169,7 @@ public class SettingsScreen implements Screen {
                 myGdxGame.music.dispose();
                 activeMusic--;
                 MemoryLoader.saveActiveMusic(0);
-                audioNumText.setText("-");
+                audioNumText.setText("off", -2);
             }
         }
     };

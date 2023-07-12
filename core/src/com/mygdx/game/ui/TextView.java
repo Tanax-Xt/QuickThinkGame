@@ -20,6 +20,7 @@ public class TextView extends UiComponent {
         height = (int) glyphLayout.height;
 
         if ((int) x == -1) this.x = GameSettings.SCR_WIDTH / 2 - width / 2;
+        if (x == -2) this.x = 682 - width / 2;
     }
 
     @Override
@@ -36,6 +37,14 @@ public class TextView extends UiComponent {
         glyphLayout.setText(font, text);
         width = (int) glyphLayout.width;
         this.x = GameSettings.SCR_WIDTH / 2 - width / 2;
+
+    }
+    public void setText(String text, int x) {
+        this.text = text;
+
+        glyphLayout.setText(font, text);
+        width = (int) glyphLayout.width;
+        this.x = 682 - width / 2;
 
     }
 }
