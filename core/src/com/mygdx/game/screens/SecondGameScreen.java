@@ -20,7 +20,6 @@ import java.util.Collections;
 
 public class SecondGameScreen implements Screen {
     MyGdxGame myGdxGame;
-
     ArrayList<UiComponent> components;
     ArrayList<Card> cards;
     ArrayList<Integer> cardsIntegers;
@@ -179,6 +178,7 @@ public class SecondGameScreen implements Screen {
             @Override
             public void onClick() {
                 if (sequence + 1 >= cards.size()) {
+                    matrix.get(sourceI - 1).isVisible2 = false;
                     isGameFinished = true;
                 }
                 else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
