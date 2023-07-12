@@ -104,20 +104,23 @@ public class SecondGameScreen implements Screen {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);
 
-            for (UiComponent component : components) {
-                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-            }
+            if (!isGameFinished) {
+                for (UiComponent component : components) {
+                    if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                }
 
-            for (Card card : cards) {
-                if (card.isVisible2) card.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-            }
+                for (Card card : cards) {
+                    if (card.isVisible2) card.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                }
 
-            for (Card component : matrix) {
-                if (component.isVisible2) component.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-            }
-
-            for (UiComponent component : uiComponentsEndOfGame) {
-                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                for (Card component : matrix) {
+                    if (component.isVisible2)
+                        component.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                }
+            } else {
+                for (UiComponent component : uiComponentsEndOfGame) {
+                    if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+                }
             }
         }
         if (activeCard > 6) {
@@ -153,6 +156,7 @@ public class SecondGameScreen implements Screen {
         for (Card card : matrix) {
             if (card.isVisible2) card.cardImgView2.draw(myGdxGame.batch);
         }
+
         if (isGameFinished) {
             for (UiComponent component: uiComponentsEndOfGame) {
                 component.draw(myGdxGame.batch);
