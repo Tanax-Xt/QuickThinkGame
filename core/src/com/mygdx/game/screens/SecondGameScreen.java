@@ -176,6 +176,7 @@ public class SecondGameScreen implements Screen {
             public void onClick() {
                 if (sequence + 1 >= cards.size()) {
                     matrix.get(sourceI - 1).isVisible2 = false;
+                    sequence++;
                     whiteRect.setResult(sequence + "/" + matrix.size());
                     isGameFinished = true;
                 }
