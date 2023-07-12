@@ -11,6 +11,7 @@ import com.mygdx.game.actorsGame2.Card;
 import com.mygdx.game.actorsGame3.Item;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.UiComponent;
+import com.mygdx.game.ui.WhiteRectangle;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
 
@@ -23,14 +24,19 @@ public class SecondGameScreen implements Screen {
     ArrayList<UiComponent> components;
     ArrayList<Card> cards;
     ArrayList<Integer> cardsIntegers;
+    ArrayList<UiComponent> uiComponentsEndOfGame;
+    ArrayList<Card> matrix;
+
+
+    WhiteRectangle whiteRect;
 
     ImageView rightIcon;
     ImageView cardImgView;
 
     boolean isShow = false;
-
+    boolean isGameFinished = false;
     int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.35);
-    int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.20);
+    int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.18);
 
     int bgSettingsHeight = (int) (GameSettings.SCR_HEIGHT * 0.4);
 
@@ -40,12 +46,20 @@ public class SecondGameScreen implements Screen {
     int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int activeCard = 1;
 
+    int sequence = 0;
+
     public SecondGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
 
         components = new ArrayList<>();
         cards = new ArrayList<>();
         cardsIntegers = new ArrayList<>();
+        matrix = new ArrayList<>();
+
+        whiteRect = new WhiteRectangle(myGdxGame);
+        whiteRect.initRestartButton(onClickBtnRestart);
+        whiteRect.initReturnMenu(onClickBtnReturn);
+        uiComponentsEndOfGame = whiteRect.getComponents();
 
         ImageView background = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/CollectOrderBG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame2.png");
@@ -55,16 +69,17 @@ public class SecondGameScreen implements Screen {
         components.add(returnMenu);
         components.add(rightTopBg);
 
-        cardsIntegers = generateRandomArray();
-        for (int i : cardsIntegers) {
-            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
-            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
-            cards.add(card);
-        }
-
-        for (int i = 1; i <= 2; i++) initImages(i, i);
-        for (int i = 3; i <= 4; i++) initImages(i, i - 2);
-        for (int i = 5; i <= 6; i++) initImages(i, i - 4);
+//        cardsIntegers = generateRandomArray();
+//        cards.clear();
+//        for (int i : cardsIntegers) {
+//            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
+//            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
+//            cards.add(card);
+//        }
+//
+//        for (int i = 1; i <= 2; i++) initImages(i, i);
+//        for (int i = 3; i <= 4; i++) initImages(i, i - 2);
+//        for (int i = 5; i <= 6; i++) initImages(i, i - 4);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
     }
@@ -74,16 +89,38 @@ public class SecondGameScreen implements Screen {
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         components.add(rightIcon);
 
+        initData();
+
+    }
+
+    public void initData () {
+        for(int i = 1; i <= 6; i++) {
+            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
+            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
+            matrix.add(card);
+        }
+
+        cardsIntegers = generateRandomArray();
+        cards.clear();
+        for (int i : cardsIntegers) {
+            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
+            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
+            cards.add(card);
+        }
+
+
+        for (int i = 1; i <= 2; i++) initImages(i, i);
+        for (int i = 3; i <= 4; i++) initImages(i, i - 2);
+        for (int i = 5; i <= 6; i++) initImages(i, i - 4);
 
         Timer.instance().scheduleTask(new Timer.Task() {
             @Override
             public void run() {
                 if (activeCard > 1) cards.get(activeCard - 2).isVisible = false;
-                    cards.get(activeCard - 1).isVisible = true;
-                    activeCard++;
-                }
+                cards.get(activeCard - 1).isVisible = true;
+                activeCard++;
+            }
         }, 1, 1);
-
     }
 
     @Override
@@ -96,6 +133,13 @@ public class SecondGameScreen implements Screen {
                     if (component.isVisible)
                         component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
                 }
+            for (Card card : cards) {
+                if (card.isVisible2)
+                    card.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
+            for (UiComponent component : uiComponentsEndOfGame) {
+                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
                 //for (UiComponent component : itemsUIcomponents) {
                     //if (component.isVisible)
                         //component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
@@ -155,6 +199,11 @@ public class SecondGameScreen implements Screen {
         for (Card card : cards) {
             if (card.isVisible2) card.cardImgView2.draw(myGdxGame.batch);
         }
+        if (isGameFinished) {
+            for (UiComponent component: uiComponentsEndOfGame) {
+                component.draw(myGdxGame.batch);
+            }
+        }
 /*        for (UiComponent component: itemsUIcomponents) {
             if (component.isVisible) component.draw(myGdxGame.batch);
         }*/
@@ -167,18 +216,31 @@ public class SecondGameScreen implements Screen {
 
         myGdxGame.batch.end();
     }
-    public void initImages(int sourceI, int i) {
-        double isTop = sourceI != i ? 2.2 : 1;
-        int x = i % 2 != 0 ? (int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27)) : (int) ((GameSettings.SCR_WIDTH - iconWidth - 50));
-        int y =  (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
+    public void initImages(final int sourceI, int i) {
+        double isTop = sourceI != i ? 2.1 : 1;
+        if (sourceI > 4) {
+            isTop = 3.2;
+        }
+        int x = i % 2 != 0 ? (int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27) + 75) : (int) ((GameSettings.SCR_WIDTH - iconWidth - 125));
+        int y =  (int) (1.24 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
 
-        cards.get(sourceI - 1).loadImg2(x, y, iconWidth, iconHeight, new Texture("icons/game2/card" + sourceI + ".png"));
-//        cards.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
-//            @Override
-//            public void onClick() {
-//
-//            }
-//        });
+        cards.get(sourceI - 1).loadImg2(x, y, iconWidth, iconHeight, new Texture("icons/game2/card" + cards.get(sourceI - 1).type + ".png"));
+        cards.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
+            @Override
+            public void onClick() {
+                if (sequence + 1 >= cards.size()) {
+                    isGameFinished = true;
+                }
+                else if (cards.get(sourceI - 1).type == cards.get(sequence).type) {
+                    cards.get(sourceI - 1).isVisible2 = false;
+                    sequence++;
+                } else {
+                    Timer.instance().clear();
+                    isGameFinished = true;
+
+                }
+            }
+        });
     }
     @Override
     public void resize(int width, int height) {
@@ -214,12 +276,30 @@ public class SecondGameScreen implements Screen {
         return randomCards;
     }
 
+    public void clearData() {
+        cardsIntegers.clear();
+        Timer.instance().clear();
+        for (Card card : cards) {
+            card.isVisible2 = false;
+        }
+        isShow = false;
+        sequence = 0;
+        activeCard = 1;
+        isGameFinished = false;
+    }
+
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
-            //clearData();
+            clearData();
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
     };
-
+    UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            clearData();
+            initData();
+        }
+    };
 }

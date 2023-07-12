@@ -6,7 +6,7 @@ import com.mygdx.game.ui.ImageView;
 public class Card {
     int x;
     int y;
-    int type;
+    public int type;
     int size1 = 500;
     int size2 = 370;
 
