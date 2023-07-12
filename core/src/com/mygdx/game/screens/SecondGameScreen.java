@@ -59,11 +59,11 @@ public class SecondGameScreen implements Screen {
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame2.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
 
+        returnMenu.setOnClickListener(onClickBtnReturn);
+
         components.add(background);
         components.add(returnMenu);
         components.add(rightTopBg);
-
-        returnMenu.setOnClickListener(onClickBtnReturn);
     }
 
     @Override
@@ -72,7 +72,6 @@ public class SecondGameScreen implements Screen {
         components.add(rightIcon);
 
         initData();
-
     }
 
     public void initData () {
@@ -177,6 +176,7 @@ public class SecondGameScreen implements Screen {
             public void onClick() {
                 if (sequence + 1 >= cards.size()) {
                     matrix.get(sourceI - 1).isVisible2 = false;
+                    whiteRect.setResult(sequence + "/" + matrix.size());
                     isGameFinished = true;
                 }
                 else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
@@ -184,6 +184,7 @@ public class SecondGameScreen implements Screen {
                     sequence++;
                 } else {
                     Timer.instance().clear();
+                    whiteRect.setResult(sequence + "/" + matrix.size());
                     isGameFinished = true;
                 }
             }

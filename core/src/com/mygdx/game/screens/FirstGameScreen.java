@@ -18,7 +18,6 @@ import com.mygdx.game.utils.MemoryLoader;
 import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class FirstGameScreen implements Screen {
     MyGdxGame myGdxGame;
@@ -39,7 +38,6 @@ public class FirstGameScreen implements Screen {
     private int gameScore = 0;
     ImageView rightIcon;
     boolean isGameFinished = false;
-    private float intervalTimer = 0f;
     private int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
     private int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
     private int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
@@ -64,12 +62,12 @@ public class FirstGameScreen implements Screen {
 
         score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
         time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
+        returnMenu.setOnClickListener(onClickBtnReturn);
 
         components.add(game1BG);
         components.add(returnMenu);
         components.add(score);
         components.add(time);
-        returnMenu.setOnClickListener(onClickBtnReturn);
         loadActors();
     }
 
