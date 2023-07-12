@@ -13,6 +13,7 @@ import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.ui.WhiteRectangle;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
+import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -57,12 +58,13 @@ public class ThirdGameScreen implements Screen {
 
         components.add(bg);
         components.add(rightTopBg);
+        returnMenu.setOnClickListener(onClickBtnReturn);
         components.add(returnMenu);
         components.add(clickText);
         components.add(border);
         components.add(hpText);
 
-        returnMenu.setOnClickListener(onClickBtnReturn);
+
     }
 
     public void initItems(int i) {
@@ -75,6 +77,7 @@ public class ThirdGameScreen implements Screen {
             @Override
             public void onClick() {
                 if (element.isActive) {
+                    Sounds.playGame3();
                     if (element.getTypeItem() == 1) XP++;
                     else XP--;
                     element.isActive = false;
@@ -93,6 +96,7 @@ public class ThirdGameScreen implements Screen {
         createObjectTask = new Timer.Task() {
             @Override
             public void run() {
+
                 if (!isGameFinished) for (int i = 0; i < 3; i++) initItems(i);
             }
         };
@@ -239,6 +243,7 @@ public class ThirdGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             clearData();
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
@@ -247,6 +252,7 @@ public class ThirdGameScreen implements Screen {
     Item.OnKillItemListener onKillItemListener = new Item.OnKillItemListener() {
         @Override
         public void onKill() {
+            Sounds.playGame3();
             Gdx.app.debug("onKill", "killed");
         }
     };
@@ -255,6 +261,7 @@ public class ThirdGameScreen implements Screen {
         @Override
         public void onClick() {
             if (isClickableFinishButtons) {
+                Sounds.playGame3();
                 clearData();
                 generateItems();
             }

@@ -10,6 +10,7 @@ import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
+import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
 
@@ -43,10 +44,10 @@ public class SettingsScreen implements Screen {
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/settingsReturn.png");
         ImageView settingsIcon = new ImageView(GameSettings.SCR_WIDTH - settingsIconWidth, GameSettings.SCR_HEIGHT - settingsIconHeight, settingsIconWidth, settingsIconHeight, "icons/settings.png");
 
-        musicTitle = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Music:", 100, 200);
-        ImageView arrowLeft = new ImageView(400, 130, 64, musicTitle.height, "images/left.png");
-        ImageView arrowRight = new ImageView(900, 130, 64, musicTitle.height, "images/right.png");
-        audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "off" : GameSettings.toString(activeMusic), -2, 200);
+        musicTitle = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, "Music:", 100, 350);
+        ImageView arrowLeft = new ImageView(400, 285, 64, musicTitle.height, "images/left.png");
+        ImageView arrowRight = new ImageView(900, 285, 64, musicTitle.height, "images/right.png");
+        audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "off" : GameSettings.toString(activeMusic), -2, 350);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
         arrowRight.setOnClickListener(onClickBtnArrowRight);
@@ -157,6 +158,7 @@ public class SettingsScreen implements Screen {
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
     };

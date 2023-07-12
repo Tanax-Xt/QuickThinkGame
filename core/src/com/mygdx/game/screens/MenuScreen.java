@@ -7,6 +7,7 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.utils.GameSettings;
+import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
 
@@ -103,12 +104,14 @@ public class MenuScreen implements Screen {
     UiComponent.OnClickListener onClickBtnCarefully = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.firstGameScreen);
         }
     };
     UiComponent.OnClickListener onClickBtnCollectOrder = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.secondGameScreen);
         }
     };
@@ -116,6 +119,7 @@ public class MenuScreen implements Screen {
     UiComponent.OnClickListener onClickBtnChooseRight = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.thirdGameScreen);
         }
     };
@@ -123,6 +127,7 @@ public class MenuScreen implements Screen {
     UiComponent.OnClickListener onClickBtnSettings = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.settingsScreen);
         }
     };
