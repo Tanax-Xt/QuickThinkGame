@@ -50,4 +50,14 @@ public class MemoryLoader {
         if (prefs.contains("resultThirdGame")) return prefs.getInteger("resultThirdGame");
         return 0;
     }
+
+    public static void saveSoundOn(boolean isTrue) {
+        prefs.putBoolean("isSoundOn", isTrue);
+        prefs.flush();
+    }
+
+    public static boolean loadSoundOn() {
+        if (prefs.contains("isSoundOn")) return prefs.getBoolean("isSoundOn");
+        return true;
+    }
 }

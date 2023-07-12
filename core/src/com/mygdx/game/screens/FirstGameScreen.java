@@ -31,7 +31,6 @@ public class FirstGameScreen implements Screen {
     Character character2;
     WhiteRectangle whiteRect;
     TextView timerExpires;
-
     final int bgHeight = GameSettings.SCR_HEIGHT;
     final int bgWidth = GameSettings.SCR_WIDTH;
     private float secondsToEnd = 30f;

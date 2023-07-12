@@ -17,7 +17,6 @@ public class WhiteRectangle {
     ImageView whiteRectangle;
     TextView menuLink;
     public TextView restartButton;
-
     ArrayList<UiComponent> components;
 
     public WhiteRectangle(BitmapFont firstFont, BitmapFont secondFont) {

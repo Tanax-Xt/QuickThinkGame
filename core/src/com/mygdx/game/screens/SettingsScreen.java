@@ -28,13 +28,16 @@ public class SettingsScreen implements Screen {
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int activeIcon = 1;
     int activeMusic;
+    boolean isSoundOn = true;
     ArrayList<Music> musicList;
     TextView musicTitle;
     TextView audioNumText;
+    TextView soundText;
 
     public SettingsScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         activeMusic = MemoryLoader.loadActiveMusic();
+        isSoundOn = MemoryLoader.loadSoundOn();
 
         components = new ArrayList<>();
         iconsList = new ArrayList<>();
@@ -48,6 +51,8 @@ public class SettingsScreen implements Screen {
         ImageView arrowLeft = new ImageView(400, 285, 64, musicTitle.height, "images/left.png");
         ImageView arrowRight = new ImageView(900, 285, 64, musicTitle.height, "images/right.png");
         audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "off" : GameSettings.toString(activeMusic), -2, 350);
+        soundText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, isSoundOn ? "Sound: Turn on" : "Sound: Turn off", 100, 200);
+        soundText.setOnClickListener(onChangeSound);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
         arrowRight.setOnClickListener(onClickBtnArrowRight);
@@ -59,7 +64,7 @@ public class SettingsScreen implements Screen {
         components.add(arrowLeft);
         components.add(arrowRight);
         components.add(audioNumText);
-
+        components.add(soundText);
 
         bgSettings.setOnClickListener(onClickBtnReturn);
     }
@@ -179,6 +184,15 @@ public class SettingsScreen implements Screen {
         @Override
         public void onClick() {
             if (activeMusic < 6) changeMusic(++activeMusic);
+        }
+    };
+
+    UiComponent.OnClickListener onChangeSound = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            MemoryLoader.saveSoundOn(!isSoundOn);
+            isSoundOn = !isSoundOn;
+            soundText.setText(isSoundOn ? "Sound: Turn on" : "Sound: Turn off");
         }
     };
 }

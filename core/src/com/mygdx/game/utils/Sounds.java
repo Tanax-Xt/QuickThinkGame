@@ -1,6 +1,7 @@
 package com.mygdx.game.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {
@@ -13,19 +14,18 @@ public class Sounds {
     };
 
     public static void playGame1() {
-        backSounds[0].play();
+        if (MemoryLoader.loadSoundOn()) backSounds[0].play();
     }
     public static void playGame2() {
-        backSounds[1].play();
+        if (MemoryLoader.loadSoundOn()) backSounds[1].play();
     }
     public static void playGame3() {
-        backSounds[2].play();
+        if (MemoryLoader.loadSoundOn()) backSounds[2].play();
     }
     public static void gameOver() {
-        backSounds[3].play();
+        if (MemoryLoader.loadSoundOn()) backSounds[3].play();
     }
     public static void MenuButtons() {
-        backSounds[4].play();
+        if (MemoryLoader.loadSoundOn()) backSounds[4].play();
     }
-
 }
