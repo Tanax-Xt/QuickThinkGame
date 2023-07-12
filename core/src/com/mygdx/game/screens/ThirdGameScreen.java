@@ -47,11 +47,6 @@ public class ThirdGameScreen implements Screen {
         itemsComponents = new ArrayList<>();
         itemsUIcomponents = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle(myGdxGame);
-        whiteRect.initRestartButton(onClickBtnRestart);
-        whiteRect.initReturnMenu(onClickBtnReturn);
-        uiComponentsEndOfGame = whiteRect.getComponents();
-
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "images/chooseright.png");
         TextView clickText = new TextView(myGdxGame.bigBlueFont.bitmapFont, "Click!", -1, 200);
         ImageView bg = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/bg3.png");
@@ -106,6 +101,11 @@ public class ThirdGameScreen implements Screen {
     }
     @Override
     public void show() {
+        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect.initRestartButton(onClickBtnRestart);
+        whiteRect.initReturnMenu(onClickBtnReturn);
+        uiComponentsEndOfGame = whiteRect.getComponents();
+
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         components.add(rightIcon);
         generateItems();
@@ -213,7 +213,7 @@ public class ThirdGameScreen implements Screen {
 
     @Override
     public void hide() {
-        clearData();
+
     }
 
     @Override

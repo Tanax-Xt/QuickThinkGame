@@ -74,7 +74,6 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void show() {
-//        components.clear();
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
         Gdx.app.debug("show", "is show");
@@ -83,12 +82,11 @@ public class FirstGameScreen implements Screen {
         gameScore = 0;
 
         score.setText(Integer.toString(gameScore), true);
-        time.setText(Float.toString(secondsToEnd), true);
+        time.setText(Integer.toString((int) secondsToEnd), true);
         components.add(rightIcon);
 
         components.add(score);
         components.add(time);
-
     }
 
     @Override
@@ -100,6 +98,14 @@ public class FirstGameScreen implements Screen {
                     component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
         }
+
+        secondsToEnd -= Gdx.graphics.getDeltaTime();
+        Timer.instance().scheduleTask(new Timer.Task() {
+            @Override
+            public void run() {
+                time.setText(String.valueOf((int) secondsToEnd));
+            }
+        }, 1, 1);
 
         for (Character item : actorsComponents) {
             item.update();

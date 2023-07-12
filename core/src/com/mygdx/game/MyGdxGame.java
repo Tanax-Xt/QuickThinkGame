@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.screens.FirstGameScreen;
-import com.mygdx.game.screens.GameOverScreen;
 import com.mygdx.game.screens.MenuScreen;
 import com.mygdx.game.screens.SecondGameScreen;
 import com.mygdx.game.screens.SettingsScreen;
@@ -26,7 +25,6 @@ public class MyGdxGame extends Game {
 	public SecondGameScreen secondGameScreen;
 	public ThirdGameScreen thirdGameScreen;
 	public SettingsScreen settingsScreen;
-	public GameOverScreen gameOverScreen;
 	public OrthographicCamera camera;
 	public CustomFont defaultFont;
 	public CustomFont gameFont1;
@@ -71,7 +69,6 @@ public class MyGdxGame extends Game {
 		secondGameScreen = new SecondGameScreen(this);
 		thirdGameScreen = new ThirdGameScreen(this);
 		settingsScreen = new SettingsScreen(this);
-		gameOverScreen = new GameOverScreen(this);
 
 		setScreen(menuScreen);
 	}

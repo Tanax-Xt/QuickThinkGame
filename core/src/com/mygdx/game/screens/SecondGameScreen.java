@@ -26,12 +26,9 @@ public class SecondGameScreen implements Screen {
     ArrayList<Integer> cardsIntegers;
     ArrayList<UiComponent> uiComponentsEndOfGame;
     ArrayList<Card> matrix;
-
-
     WhiteRectangle whiteRect;
 
     ImageView rightIcon;
-    ImageView cardImgView;
 
     boolean isShow = false;
     boolean isGameFinished = false;
@@ -56,7 +53,7 @@ public class SecondGameScreen implements Screen {
         cardsIntegers = new ArrayList<>();
         matrix = new ArrayList<>();
 
-        whiteRect = new WhiteRectangle(myGdxGame);
+        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
         whiteRect.initRestartButton(onClickBtnRestart);
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();
@@ -68,18 +65,6 @@ public class SecondGameScreen implements Screen {
         components.add(background);
         components.add(returnMenu);
         components.add(rightTopBg);
-
-//        cardsIntegers = generateRandomArray();
-//        cards.clear();
-//        for (int i : cardsIntegers) {
-//            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
-//            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
-//            cards.add(card);
-//        }
-//
-//        for (int i = 1; i <= 2; i++) initImages(i, i);
-//        for (int i = 3; i <= 4; i++) initImages(i, i - 2);
-//        for (int i = 5; i <= 6; i++) initImages(i, i - 4);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
     }
@@ -94,12 +79,6 @@ public class SecondGameScreen implements Screen {
     }
 
     public void initData () {
-        for(int i = 1; i <= 6; i++) {
-            Texture cardTexture = new Texture("icons/game2/card" + i + ".png");
-            Card card = new Card(cardTexture, GameSettings.SCR_WIDTH / 2 - 250, GameSettings.SCR_HEIGHT / 2 - 100, i);
-            matrix.add(card);
-        }
-
         cardsIntegers = generateRandomArray();
         cards.clear();
         for (int i : cardsIntegers) {
@@ -108,7 +87,7 @@ public class SecondGameScreen implements Screen {
             cards.add(card);
         }
 
-
+        matrix.clear();
         for (int i = 1; i <= 2; i++) initImages(i, i);
         for (int i = 3; i <= 4; i++) initImages(i, i - 2);
         for (int i = 5; i <= 6; i++) initImages(i, i - 4);
@@ -128,26 +107,22 @@ public class SecondGameScreen implements Screen {
         if (Gdx.input.justTouched()) {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);
-            //if (!isGameFinished) {
-                for (UiComponent component : components) {
-                    if (component.isVisible)
-                        component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-                }
-            for (Card card : cards) {
-                if (card.isVisible2)
-                    card.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+
+            for (UiComponent component : components) {
+                if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
+
+            for (Card card : cards) {
+                if (card.isVisible2) card.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
+
+            for (Card component : matrix) {
+                if (component.isVisible2) component.cardImgView2.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
+
             for (UiComponent component : uiComponentsEndOfGame) {
                 if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
-                //for (UiComponent component : itemsUIcomponents) {
-                    //if (component.isVisible)
-                        //component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-                //}
-            //}
-            //for (UiComponent component : uiComponentsEndOfGame) {
-                //if (component.isVisible) component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
-            //}
         }
         if (activeCard > 6) {
             if (!isShow) {
@@ -156,34 +131,14 @@ public class SecondGameScreen implements Screen {
                     @Override
                     public void run() {
                         cards.get(cards.size() - 1).isVisible = false;
-                        for (int i = 0; i < cards.size(); i++) {
-                            cards.get(i).isVisible2 = true;
+                        for (int i = 0; i < matrix.size(); i++) {
+                            matrix.get(i).isVisible2 = true;
                         }
                     }
                 }, 1);
                 isShow = true;
             }
         }
-
-/*
-        if (!isGameFinished) {
-            initMainTimer();
-            initGenerateItemsTimer();
-        }*/
-
-        /*for (Item item: itemsComponents) {
-            if (!isGameFinished) {
-                item.update();
-                if (item.getY() < borderPosition) {
-                    if (item.isActive) {
-                        if (item.getTypeItem() == 1) XP--;
-                        hpText.setText(String.valueOf(XP));
-                    }
-                    item.isActive = false;
-                }
-            }
-        }*/
-
 
         ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
         myGdxGame.camera.update();
@@ -199,45 +154,39 @@ public class SecondGameScreen implements Screen {
         for (Card card : cards) {
             if (card.isVisible2) card.cardImgView2.draw(myGdxGame.batch);
         }
+        for (Card card : matrix) {
+            if (card.isVisible2) card.cardImgView2.draw(myGdxGame.batch);
+        }
         if (isGameFinished) {
             for (UiComponent component: uiComponentsEndOfGame) {
                 component.draw(myGdxGame.batch);
             }
         }
-/*        for (UiComponent component: itemsUIcomponents) {
-            if (component.isVisible) component.draw(myGdxGame.batch);
-        }*/
-
-/*        if (isGameFinished) {
-            for (UiComponent component: uiComponentsEndOfGame) {
-                component.draw(myGdxGame.batch);
-            }
-        }*/
 
         myGdxGame.batch.end();
     }
     public void initImages(final int sourceI, int i) {
         double isTop = sourceI != i ? 2.1 : 1;
-        if (sourceI > 4) {
-            isTop = 3.2;
-        }
+        if (sourceI > 4) isTop = 3.2;
+
         int x = i % 2 != 0 ? (int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27) + 75) : (int) ((GameSettings.SCR_WIDTH - iconWidth - 125));
         int y =  (int) (1.24 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight);
 
-        cards.get(sourceI - 1).loadImg2(x, y, iconWidth, iconHeight, new Texture("icons/game2/card" + cards.get(sourceI - 1).type + ".png"));
-        cards.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
+        Card card = new Card(new Texture("icons/game2/card" + sourceI + ".png"), x, y, sourceI);
+        matrix.add(card);
+        matrix.get(sourceI - 1).loadImg2(x, y, iconWidth, iconHeight, new Texture("icons/game2/card" + sourceI + ".png"));
+        matrix.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
                 if (sequence + 1 >= cards.size()) {
                     isGameFinished = true;
                 }
-                else if (cards.get(sourceI - 1).type == cards.get(sequence).type) {
-                    cards.get(sourceI - 1).isVisible2 = false;
+                else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
+                    matrix.get(sourceI - 1).isVisible2 = false;
                     sequence++;
                 } else {
                     Timer.instance().clear();
                     isGameFinished = true;
-
                 }
             }
         });
@@ -280,6 +229,9 @@ public class SecondGameScreen implements Screen {
         cardsIntegers.clear();
         Timer.instance().clear();
         for (Card card : cards) {
+            card.isVisible2 = false;
+        }
+        for (Card card : matrix) {
             card.isVisible2 = false;
         }
         isShow = false;
