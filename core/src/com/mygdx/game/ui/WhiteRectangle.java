@@ -21,7 +21,6 @@ public class WhiteRectangle {
     ArrayList<UiComponent> components;
 
     public WhiteRectangle(BitmapFont firstFont, BitmapFont secondFont) {
-
         whiteRectangle = new ImageView(whiteRectPositionX, whiteRectPositionY, whiteRectWidth, whiteRectHigh, "backgrounds/gameoverWhiteRect.png");
         pointsView = new TextView(firstFont, "Your points!", GameSettings.SCR_WIDTH / 2, GameSettings.SCR_HEIGHT - whiteRectHigh - 50);
         pointsView.x = GameSettings.SCR_WIDTH / 2 - pointsView.width / 2;

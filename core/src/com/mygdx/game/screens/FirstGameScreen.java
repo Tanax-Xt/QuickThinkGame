@@ -26,9 +26,6 @@ public class FirstGameScreen implements Screen {
     ArrayList<Character> actorsComponents;
     ArrayList<UiComponent> uiComponentsEndOfGame;
     ArrayList<Item> itemsComponents;
-
-    private Timer.Task createObjectTask;
-
     TextView score;
     TextView time;
     Character character1;
@@ -40,8 +37,6 @@ public class FirstGameScreen implements Screen {
     final int bgWidth = GameSettings.SCR_WIDTH;
     private float secondsToEnd = 30f;
     private int gameScore = 0;
-    private int characterEx1;
-    private int characterEx2;
     ImageView rightIcon;
     boolean isGameFinished = false;
     private float intervalTimer = 0f;
@@ -56,6 +51,12 @@ public class FirstGameScreen implements Screen {
         components = new ArrayList<>();
         actorsComponents = new ArrayList<>();
         itemsComponents = new ArrayList<>();
+        uiComponentsEndOfGame = new ArrayList<>();
+
+        whiteRect = new WhiteRectangle(myGdxGame.gameOverBlueFont.bitmapFont, myGdxGame.gameOverBlueSmallFont.bitmapFont);
+        whiteRect.initRestartButton(onClickBtnRestart);
+        whiteRect.initReturnMenu(onClickBtnReturn);
+        uiComponentsEndOfGame = whiteRect.getComponents();
 
         ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
@@ -63,7 +64,6 @@ public class FirstGameScreen implements Screen {
 
         score = new TextView(myGdxGame.gameFontLarge2.bitmapFont, String.valueOf(gameScore), -1, (int) (GameSettings.SCR_HEIGHT * 0.7));
         time = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
-
 
         components.add(game1BG);
         components.add(returnMenu);
@@ -78,9 +78,6 @@ public class FirstGameScreen implements Screen {
         rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
         ScreenUtils.clear(0.95686274509f, 0.95686274509f, 0.95686274509f, 1);
         Gdx.app.debug("show", "is show");
-        render(0);
-        secondsToEnd = 30f;
-        gameScore = 0;
 
         score.setText(Integer.toString(gameScore), true);
         time.setText(Integer.toString((int) secondsToEnd), true);
@@ -98,6 +95,9 @@ public class FirstGameScreen implements Screen {
             for (UiComponent component : components) {
                     component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
             }
+            for (UiComponent component : uiComponentsEndOfGame) {
+                component.isHit((int) myGdxGame.touch.x, (int) myGdxGame.touch.y);
+            }
         }
 
         secondsToEnd -= Gdx.graphics.getDeltaTime();
@@ -107,6 +107,14 @@ public class FirstGameScreen implements Screen {
                 time.setText(String.valueOf((int) secondsToEnd), true);
             }
         }, 1, 1);
+
+        if (secondsToEnd <= 0) {
+            secondsToEnd = 0;
+            time.setText("");
+            Timer.instance().clear();
+            whiteRect.setResult(String.valueOf(gameScore));
+            isGameFinished = true;
+        }
 
         for (Character item : actorsComponents) {
             item.update();
@@ -119,7 +127,13 @@ public class FirstGameScreen implements Screen {
         for (UiComponent component : components) {
             component.draw(myGdxGame.batch);
         }
-//        for ()
+
+        if (isGameFinished) {
+            for (UiComponent component : uiComponentsEndOfGame) {
+                component.draw(myGdxGame.batch);
+            }
+        }
+
         myGdxGame.batch.end();
     }
 
@@ -146,8 +160,6 @@ public class FirstGameScreen implements Screen {
 
     @Override
     public void dispose() {
-//        clearData();
-
     }
 
     void loadActors() {
@@ -163,14 +175,10 @@ public class FirstGameScreen implements Screen {
                 if (modex == -1) {
                     character2.setEx(1);
                     character2.update();
-                    if (character1.getEx() == -1) {
-                        modex = 1;
-                    }
-//                    character2.actorImgView.setImgTexture(character2.texture);
+                    if (character1.getEx() == -1) modex = 1;
                 }
                 character1.setEx(modex);
                 character1.update();
-//                character1.actorImgView.setImgTexture(character1.texture);
             }
         });
 
@@ -186,7 +194,6 @@ public class FirstGameScreen implements Screen {
                     if (character2.getEx() == -1) {
                         modex = 1;
                     }
-//                    character2.actorImgView.setImgTexture(character2.texture);
                 }
                 character2.setEx(modex);
                 character2.update();
@@ -197,99 +204,27 @@ public class FirstGameScreen implements Screen {
         actorsComponents.add(character2);
         components.add(character1.actorImgView);
         components.add(character2.actorImgView);
-//        components.add(timerExpires);
-
-
     }
 
-
-    public void initGenerateItemsTimer() {
-        intervalTimer += Gdx.graphics.getDeltaTime();
-        if (intervalTimer >= 2f) {
-            intervalTimer -= 2f;
-            createObjectTask.run();
-        }
+    public void clearData() {
+        secondsToEnd = 30f;
+        gameScore = 0;
+        isGameFinished = false;
     }
-
-//    public void initMainTimer() {
-//        secondsToEnd -= Gdx.graphics.getDeltaTime();
-//        if (secondsToEnd < 0) {
-//            secondsToEnd = 0;
-//            Timer.instance().clear();
-//            whiteRect.setResult(String.valueOf(gameScore));
-//            isGameFinished = true;
-//            Timer.instance().scheduleTask(new Timer.Task() {
-//                @Override
-//                public void run() {
-//                    isClickableFinishButtons = true;
-//                }
-//            }, 1);
-//        }
-//
-//        Timer.schedule(new Timer.Task() {
-//            @Override
-//            public void run() {
-//                timerExpires.setText(String.valueOf((int) secondsToEnd));
-//            }
-//        }, 1, 1);
-//    }
-
-//    public void clearData() {
-//        for (Item component: itemsComponents) {
-//            component.actorImgView.imgTexture.dispose();
-//        }
-//        for (UiComponent component: components) {
-//            component.isVisible = false;
-//        }
-//        itemsComponents.clear();
-//        secondsToEnd = 30f;
-//        gameScore = 0;
-//        intervalTimer = 0f;
-////        isClickableFinishButtons = false;
-//        Timer.instance().clear();
-//        isGameFinished = false;
-//    }
-
-//    private Character.isHitListener isHitListenerCharacter1 = new Character.isHitListener() {
-//        @Override
-//        public void onClick() {
-//            Gdx.app.debug("hit1", "is hit 1");
-//            gameScore += character1.getEx();
-//            character1.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-//            character1.update();
-//        }
-//    };
-//
-//    private Character.isHitListener isHitListenerCharacter2 = new Character.isHitListener() {
-//        @Override
-//        public void onClick() {
-//            Gdx.app.debug("hit2", "is hit 2");
-//            gameScore += character2.getEx();
-//            character2.setEx((int) ((MathUtils.random(0, 1) - 0.5) * 2));
-//            character2.update();
-//        }
-//    };
-
 
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
             Sounds.MenuButtons();
+            clearData();
             myGdxGame.setScreen(myGdxGame.menuScreen);
-
         }
     };
-//    private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
-//        @Override
-//        public void onClick() {
-//            myGdxGame.setScreen(myGdxGame.menuScreen);
-//        }
-//    };
 
-//    UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
-//        @Override
-//        public void onClick() {
-//            if (isClickableFinishButtons) clearData();
-//        }
-//    };
+    UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
+        @Override
+        public void onClick() {
+            clearData();
+        }
+    };
 }
