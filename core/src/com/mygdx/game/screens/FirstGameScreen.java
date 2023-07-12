@@ -166,34 +166,40 @@ public class FirstGameScreen implements Screen {
         character1.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
-                gameScore += character1.getEx();
-                score.setText(String.valueOf(gameScore), true);
-                int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
-                if (modex == -1) {
-                    character2.setEx(1);
-                    character2.update();
-                    if (character1.getEx() == -1) modex = 1;
+                if (!isGameFinished) {
+                    Sounds.playGame1();
+                    gameScore += character1.getEx() == 1 ? character1.getEx() : (int) (character1.getEx() * MathUtils.random(1, 4));
+                    score.setText(String.valueOf(gameScore), true);
+                    int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
+                    if (modex == -1) {
+                        character2.setEx(1);
+                        character2.update();
+                        if (character1.getEx() == -1) modex = 1;
+                    }
+                    character1.setEx(modex);
+                    character1.update();
                 }
-                character1.setEx(modex);
-                character1.update();
             }
         });
 
         character2.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
-                gameScore += character2.getEx();
-                score.setText(String.valueOf(gameScore), true);
-                int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
-                if (modex == -1) {
-                    character1.setEx(1);
-                    character1.update();
-                    if (character2.getEx() == -1) {
-                        modex = 1;
+                if (!isGameFinished) {
+                    Sounds.playGame1();
+                    gameScore += character2.getEx() == 1 ? character2.getEx() : (int) (character2.getEx() * MathUtils.random(1, 4));
+                    score.setText(String.valueOf(gameScore), true);
+                    int modex = (int) ((MathUtils.random(0, 1) - 0.5) * 2);
+                    if (modex == -1) {
+                        character1.setEx(1);
+                        character1.update();
+                        if (character2.getEx() == -1) {
+                            modex = 1;
+                        }
                     }
+                    character2.setEx(modex);
+                    character2.update();
                 }
-                character2.setEx(modex);
-                character2.update();
             }
         });
 
@@ -206,6 +212,8 @@ public class FirstGameScreen implements Screen {
     public void clearData() {
         secondsToEnd = 30f;
         gameScore = 0;
+        time.setText(Float.toString(secondsToEnd), true);
+        score.setText(Integer.toString(gameScore), true);
         isGameFinished = false;
     }
 
@@ -221,6 +229,7 @@ public class FirstGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.playGame1();
             clearData();
         }
     };
