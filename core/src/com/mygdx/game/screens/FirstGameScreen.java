@@ -15,6 +15,7 @@ import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.ui.WhiteRectangle;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
+import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -103,7 +104,7 @@ public class FirstGameScreen implements Screen {
         Timer.instance().scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                time.setText(String.valueOf((int) secondsToEnd));
+                time.setText(String.valueOf((int) secondsToEnd), true);
             }
         }, 1, 1);
 
@@ -273,7 +274,9 @@ public class FirstGameScreen implements Screen {
     private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             myGdxGame.setScreen(myGdxGame.menuScreen);
+
         }
     };
 //    private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
