@@ -26,22 +26,20 @@ public class SecondGameScreen implements Screen {
     ArrayList<UiComponent> uiComponentsEndOfGame;
     ArrayList<Card> matrix;
     WhiteRectangle whiteRect;
-
+    TextView repeatText;
     ImageView rightIcon;
-
     boolean isShow = false;
     boolean isGameFinished = false;
     int iconWidth = (int) (GameSettings.SCR_WIDTH * 0.35);
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.18);
-
     int bgSettingsHeight = (int) (GameSettings.SCR_HEIGHT * 0.4);
-
     int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
     int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
     int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
     int activeCard = 1;
-
+    int result = 0;
+    int b = 5;
     int sequence = 0;
 
     public SecondGameScreen(MyGdxGame myGdxGame) {
@@ -60,7 +58,7 @@ public class SecondGameScreen implements Screen {
         ImageView background = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/CollectOrderBG.png");
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame2.png");
         ImageView rightTopBg = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/right_top_bg_game3.png");
-        TextView repeatText = new TextView(myGdxGame.bigBlueFont.bitmapFont, "Repeat!", -1, 200);
+        repeatText = new TextView(myGdxGame.bigBlueFont.bitmapFont, "Remember!", -1, 200);
 
         returnMenu.setOnClickListener(onClickBtnReturn);
 
@@ -137,6 +135,8 @@ public class SecondGameScreen implements Screen {
                         for (int i = 0; i < matrix.size(); i++) {
                             matrix.get(i).isVisible2 = true;
                         }
+                        repeatText.setText("Repeat!");
+                        repeatText.x += 50;
                     }
                 }, 1);
                 isShow = true;
@@ -185,11 +185,13 @@ public class SecondGameScreen implements Screen {
                 if (sequence + 1 >= cards.size()) {
                     matrix.get(sourceI - 1).isVisible2 = false;
                     sequence++;
-                    whiteRect.setResult(sequence + "/" + matrix.size());
+                    whiteRect.setResult(String.valueOf(result));
                     isGameFinished = true;
                 }
                 else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
                     matrix.get(sourceI - 1).isVisible2 = false;
+                    result += b;
+                    b += 5;
                     sequence++;
                 } else {
                     Timer.instance().clear();
@@ -234,6 +236,7 @@ public class SecondGameScreen implements Screen {
     }
 
     public void clearData() {
+        repeatText.setText("Remember!");
         cardsIntegers.clear();
         Timer.instance().clear();
         for (Card card : cards) {
