@@ -212,9 +212,9 @@ public class FirstGameScreen implements Screen {
     public void clearData() {
         secondsToEnd = 30f;
         gameScore = 0;
-        time.setText(Float.toString(secondsToEnd), true);
         score.setText(Integer.toString(gameScore), true);
         isGameFinished = false;
+//        time.setText(Float.toString(secondsToEnd), true);
     }
 
     private final UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
