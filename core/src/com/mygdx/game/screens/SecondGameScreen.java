@@ -70,7 +70,7 @@ public class SecondGameScreen implements Screen {
 
     @Override
     public void show() {
-        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "icons/icon" + MemoryLoader.loadIconState() + ".png");
+        rightIcon = new ImageView(GameSettings.SCR_WIDTH - rightIconBgWidth, GameSettings.SCR_HEIGHT - rightIconBgHeight, rightIconBgWidth, rightIconBgHeight, "images/icons_default/icon" + MemoryLoader.loadIconState() + ".png");
         components.add(rightIcon);
 
         initData();
