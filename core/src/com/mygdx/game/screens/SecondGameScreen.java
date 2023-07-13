@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.actorsGame2.Card;
+import com.mygdx.game.actors.Card;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;

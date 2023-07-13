@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.actorsGame3.Item;
+import com.mygdx.game.actors.Item;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.TextView;
 import com.mygdx.game.ui.UiComponent;
@@ -73,26 +73,8 @@ public class ThirdGameScreen implements Screen {
         String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
 
-        int x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
+       // int x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
         int y = 5 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 6 * borderPosition);
-
-
-
-//        boolean isTrue = false;
-//        while (!isTrue) {
-//            boolean isPreTrue = true;
-//            for (Item item : itemsComponents) {
-//                if (x < item.getX() + item.width &&
-//                        x + texture.getWidth() > item.getX() &&
-//                        y < item.getX() + item.height &&
-//                        y + texture.getHeight() > item.getY()) {
-//                    x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
-//                    y = 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition);
-//                    isPreTrue = false;
-//                }
-//            }
-//            isTrue = isPreTrue;
-//        }
 
         final Item element = new Item(texture, coordsX.get(i), y, itemNum, onKillItemListener);
 

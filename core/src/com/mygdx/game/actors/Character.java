@@ -1,4 +1,4 @@
-package com.mygdx.game.actorsGame1;
+package com.mygdx.game.actors;
 
 import static com.mygdx.game.utils.GameSettings.SCR_WIDTH;
 import com.badlogic.gdx.graphics.Texture;
