@@ -9,7 +9,6 @@ public abstract class UiComponent {
     public int y;
     public int width, height;
     public boolean isVisible;
-
     public OnClickListener onClickListener;
 
     public UiComponent(int x, int y, int wight, int height) {
@@ -26,7 +25,6 @@ public abstract class UiComponent {
     }
 
     public void draw(SpriteBatch spriteBatch) {}
-
     public boolean isHit(int touchX, int touchY) {
         Gdx.app.debug("is touch", "touch");
         if (isVisible && touchX > x && touchY < y && x + width > touchX && y - height < touchY) {
