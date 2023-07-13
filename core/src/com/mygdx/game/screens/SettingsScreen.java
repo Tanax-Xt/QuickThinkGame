@@ -192,7 +192,7 @@ public class SettingsScreen implements Screen {
         public void onClick() {
             MemoryLoader.saveSoundOn(!isSoundOn);
             isSoundOn = !isSoundOn;
-            soundText.setText(isSoundOn ? "Sound: Turn on" : "Sound: Turn off");
+            soundText.setText(isSoundOn ? "Sounds: Turn on" : "Sounds: Turn off");
         }
     };
 }
