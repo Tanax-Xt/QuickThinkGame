@@ -11,7 +11,7 @@ public class Colorout extends UiComponent {
 
     public Colorout(Color color) {
         super(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT);
-        Pixmap pixmap = new Pixmap((int) width, (int) height, Pixmap.Format.RGBA8888);
+        Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
         pixmap.fill();
         coloroutTexture = new Texture(pixmap);
