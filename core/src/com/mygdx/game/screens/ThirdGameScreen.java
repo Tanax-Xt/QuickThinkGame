@@ -71,7 +71,27 @@ public class ThirdGameScreen implements Screen {
         int itemNum = new Random().nextInt(2);
         String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
-        final Item element = new Item(texture, 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1)), 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition), itemNum, onKillItemListener);
+
+        int x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
+        int y = 5 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 6 * borderPosition);
+
+//        boolean isTrue = false;
+//        while (!isTrue) {
+//            boolean isPreTrue = true;
+//            for (Item item : itemsComponents) {
+//                if (x < item.getX() + item.width &&
+//                        x + texture.getWidth() > item.getX() &&
+//                        y < item.getX() + item.height &&
+//                        y + texture.getHeight() > item.getY()) {
+//                    x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
+//                    y = 4 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 5 * borderPosition);
+//                    isPreTrue = false;
+//                }
+//            }
+//            isTrue = isPreTrue;
+//        }
+
+        final Item element = new Item(texture, x, y, itemNum, onKillItemListener);
 
         element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
@@ -215,9 +235,6 @@ public class ThirdGameScreen implements Screen {
         timer = 30f;
         XP = 0;
         Timer.instance().clear();
-//        for (UiComponent component: uiComponentsEndOfGame) {
-//            component.isVisible = false;
-//        }
         isGameFinished = false;
     }
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {

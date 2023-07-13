@@ -187,6 +187,7 @@ public class SecondGameScreen implements Screen {
                     sequence++;
                     whiteRect.setResult(String.valueOf(result));
                     result = 0;
+                    b = 5;
                     isGameFinished = true;
                 }
                 else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
@@ -198,6 +199,7 @@ public class SecondGameScreen implements Screen {
                     Timer.instance().clear();
                     whiteRect.setResult(String.valueOf(result));
                     result = 0;
+                    b = 5;
                     isGameFinished = true;
                 }
             }

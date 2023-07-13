@@ -1,7 +1,5 @@
 package com.mygdx.game.actorsGame3;
 
-import static com.mygdx.game.utils.GameSettings.SCR_WIDTH;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.ui.ImageView;
 import com.mygdx.game.ui.UiComponent;
@@ -29,6 +27,10 @@ public class Item {
 
     public void update() {
         if (actorImgView.y > -height) actorImgView.y = y -= velocityY;
+    }
+
+    public int getX() {
+        return x;
     }
 
     public int getY() {

@@ -12,7 +12,6 @@ import com.mygdx.game.screens.FirstGameScreen;
 import com.mygdx.game.screens.MenuScreen;
 import com.mygdx.game.screens.SecondGameScreen;
 import com.mygdx.game.screens.SettingsScreen;
-import com.mygdx.game.screens.SplashScreen;
 import com.mygdx.game.screens.ThirdGameScreen;
 import com.mygdx.game.utils.CustomFont;
 import com.mygdx.game.utils.GameSettings;
@@ -25,7 +24,6 @@ public class MyGdxGame extends Game {
 	public SecondGameScreen secondGameScreen;
 	public ThirdGameScreen thirdGameScreen;
 	public SettingsScreen settingsScreen;
-	public SplashScreen splashScreen;
 	public OrthographicCamera camera;
 	public CustomFont defaultFont;
 	public CustomFont gameFont1;
@@ -70,7 +68,6 @@ public class MyGdxGame extends Game {
 		secondGameScreen = new SecondGameScreen(this);
 		thirdGameScreen = new ThirdGameScreen(this);
 		settingsScreen = new SettingsScreen(this);
-		splashScreen = new SplashScreen(this);
 
 		setScreen(menuScreen);
 	}
