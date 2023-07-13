@@ -188,6 +188,7 @@ public class ThirdGameScreen implements Screen {
             timer = 0;
             Timer.instance().clear();
             whiteRect.setResult(String.valueOf(XP));
+            MemoryLoader.saveNewExperience(XP);
             isGameFinished = true;
         }
     }

@@ -28,7 +28,7 @@ public class SettingsScreen implements Screen {
     int iconHeight = (int) (GameSettings.SCR_HEIGHT * 0.15);
     int activeIcon = 1;
     int activeMusic;
-    boolean isSoundOn = true;
+    boolean isSoundOn;
     ArrayList<Music> musicList;
     TextView musicTitle;
     TextView audioNumText;
@@ -70,11 +70,10 @@ public class SettingsScreen implements Screen {
     }
 
     public void initImages(final int sourceI, final int i) {
-        double isTop = sourceI != i ? 2.2 : 1;
         ImageView isActiveIconImage = new ImageView((int) (GameSettings.SCR_WIDTH / 2 - iconWidth * 0.7), GameSettings.SCR_HEIGHT / 2 + iconHeight, (int) (iconWidth * 1.5), (int) (iconHeight * 1.5), "icons/icon" + sourceI + ".png");
         if (activeIcon == sourceI) activeIconImage = isActiveIconImage;
 
-        final ImageView icon = new ImageView((int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27)), (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - isTop * iconHeight), iconWidth, iconHeight, "icons/icon" + sourceI + ".png");
+        final ImageView icon = new ImageView((int) (i * 50 + (i - 1) * (GameSettings.SCR_WIDTH * 0.27)), (int) (0.95 * GameSettings.SCR_HEIGHT - bgSettingsHeight - (sourceI != i ? 2.2 : 1) * iconHeight), iconWidth, iconHeight, "icons/icon" + sourceI + ".png");
         icon.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
@@ -113,12 +112,14 @@ public class SettingsScreen implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.begin();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
+
         for (UiComponent component: components) {
             component.draw(myGdxGame.batch);
         }
         for (UiComponent component: iconsList) {
             component.draw(myGdxGame.batch);
         }
+
         activeIconImage.draw(myGdxGame.batch);
         myGdxGame.batch.end();
     }
@@ -180,6 +181,7 @@ public class SettingsScreen implements Screen {
             }
         }
     };
+
     UiComponent.OnClickListener onClickBtnArrowRight = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {

@@ -111,6 +111,7 @@ public class FirstGameScreen implements Screen {
             time.setText("");
             Timer.instance().clear();
             whiteRect.setResult(String.valueOf(gameScore));
+            MemoryLoader.saveNewExperience(gameScore);
             isGameFinished = true;
         }
 

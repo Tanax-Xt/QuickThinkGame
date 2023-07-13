@@ -186,6 +186,7 @@ public class SecondGameScreen implements Screen {
                     matrix.get(sourceI - 1).isVisible2 = false;
                     sequence++;
                     whiteRect.setResult(String.valueOf(result));
+                    MemoryLoader.saveNewExperience(result);
                     result = 0;
                     b = 5;
                     isGameFinished = true;
@@ -198,6 +199,7 @@ public class SecondGameScreen implements Screen {
                 } else {
                     Timer.instance().clear();
                     whiteRect.setResult(String.valueOf(result));
+                    MemoryLoader.saveNewExperience(result);
                     result = 0;
                     b = 5;
                     isGameFinished = true;

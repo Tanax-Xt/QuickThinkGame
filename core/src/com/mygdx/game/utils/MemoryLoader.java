@@ -9,11 +9,6 @@ public class MemoryLoader {
 
     private static final Preferences prefs = Gdx.app.getPreferences("User saves");
 
-    public static void saveMusicState(boolean isPlaying) {
-        prefs.putString("musicState", String.valueOf(isPlaying));
-        prefs.flush();
-    }
-
     public static int loadActiveMusic() {
         if (prefs.contains("musicActive")) return prefs.getInteger("musicActive");
         return 1;
@@ -22,13 +17,6 @@ public class MemoryLoader {
     public static void saveActiveMusic(int num) {
         prefs.putInteger("musicActive", num);
         prefs.flush();
-    }
-
-    public static boolean loadMusicState() {
-        if (prefs.contains("musicState"))
-            return Boolean.parseBoolean(prefs.getString("musicState"));
-        saveMusicState(DEFAULT_SOUND_STATE);
-        return true;
     }
 
     public static void saveIconState(int numElement) {
@@ -49,5 +37,15 @@ public class MemoryLoader {
     public static boolean loadSoundOn() {
         if (prefs.contains("isSoundOn")) return prefs.getBoolean("isSoundOn");
         return true;
+    }
+
+    public static void saveNewExperience(int result) {
+        prefs.putInteger("exp", prefs.getInteger("exp") + result);
+        prefs.flush();
+    }
+
+    public static int loadExperience() {
+        if (prefs.contains("exp")) return prefs.getInteger("exp");
+        return 0;
     }
 }
