@@ -12,7 +12,7 @@ public class Item {
     public int width = 120;
     public int height = 120;
     // 1 - apple, 0 - ball
-    int typeItem = 1;
+    int typeItem;
     int velocityY = 8;
     public boolean isActive = true;
 

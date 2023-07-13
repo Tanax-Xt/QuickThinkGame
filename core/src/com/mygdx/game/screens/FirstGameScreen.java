@@ -32,16 +32,12 @@ public class FirstGameScreen implements Screen {
     Character character2;
     WhiteRectangle whiteRect;
     TextView timerExpires;
-    final int bgHeight = GameSettings.SCR_HEIGHT;
-    final int bgWidth = GameSettings.SCR_WIDTH;
     private float secondsToEnd = 30f;
     private int gameScore = 0;
     ImageView rightIcon;
     boolean isGameFinished = false;
-    private int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
-    private int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
-    private int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
-    private int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
+    private final int rightIconBgWidth = (int) (GameSettings.SCR_WIDTH * 0.2);
+    private final int rightIconBgHeight = (int) (GameSettings.SCR_HEIGHT * 0.1);
 
     public FirstGameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -56,7 +52,9 @@ public class FirstGameScreen implements Screen {
         whiteRect.initReturnMenu(onClickBtnReturn);
         uiComponentsEndOfGame = whiteRect.getComponents();
 
-        ImageView game1BG = new ImageView(0, 0, bgWidth, bgHeight, "backgrounds/game1BG.png");
+        ImageView game1BG = new ImageView(0, 0, GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT, "backgrounds/game1BG.png");
+        int returnMenuWidth = (int) (GameSettings.SCR_WIDTH * 0.6);
+        int returnMenuHeight = (int) (GameSettings.SCR_HEIGHT * 0.11);
         ImageView returnMenu = new ImageView(0, GameSettings.SCR_HEIGHT - returnMenuHeight, returnMenuWidth, returnMenuHeight, "buttons/returnButtonGame1.png");
         timerExpires = new TextView(myGdxGame.gameFontLarge2.bitmapFont, Float.toString(secondsToEnd), -1, (int) (GameSettings.SCR_HEIGHT * 0.8));
 
@@ -219,7 +217,7 @@ public class FirstGameScreen implements Screen {
         isGameFinished = false;
     }
 
-    private UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
+    private final UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
             Sounds.MenuButtons();
