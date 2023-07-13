@@ -186,6 +186,7 @@ public class SecondGameScreen implements Screen {
                     matrix.get(sourceI - 1).isVisible2 = false;
                     sequence++;
                     whiteRect.setResult(String.valueOf(result));
+                    result = 0;
                     isGameFinished = true;
                 }
                 else if (matrix.get(sourceI - 1).type == cards.get(sequence).type) {
@@ -195,7 +196,8 @@ public class SecondGameScreen implements Screen {
                     sequence++;
                 } else {
                     Timer.instance().clear();
-                    whiteRect.setResult(sequence + "/" + matrix.size());
+                    whiteRect.setResult(String.valueOf(result));
+                    result = 0;
                     isGameFinished = true;
                 }
             }
