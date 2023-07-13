@@ -14,6 +14,7 @@ import com.mygdx.game.ui.UiComponent;
 import com.mygdx.game.ui.WhiteRectangle;
 import com.mygdx.game.utils.GameSettings;
 import com.mygdx.game.utils.MemoryLoader;
+import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -181,6 +182,7 @@ public class SecondGameScreen implements Screen {
         matrix.get(sourceI - 1).cardImgView2.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
             public void onClick() {
+                Sounds.playGame2();
                 if (sequence + 1 >= cards.size()) {
                     matrix.get(sourceI - 1).isVisible2 = false;
                     sequence++;
@@ -259,6 +261,7 @@ public class SecondGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnReturn = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             clearData();
             myGdxGame.setScreen(myGdxGame.menuScreen);
         }
@@ -266,6 +269,7 @@ public class SecondGameScreen implements Screen {
     UiComponent.OnClickListener onClickBtnRestart = new UiComponent.OnClickListener() {
         @Override
         public void onClick() {
+            Sounds.MenuButtons();
             clearData();
             initData();
         }

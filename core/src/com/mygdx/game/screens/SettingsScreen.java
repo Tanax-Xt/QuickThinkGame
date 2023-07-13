@@ -51,7 +51,7 @@ public class SettingsScreen implements Screen {
         ImageView arrowLeft = new ImageView(400, 285, 64, musicTitle.height, "images/left.png");
         ImageView arrowRight = new ImageView(900, 285, 64, musicTitle.height, "images/right.png");
         audioNumText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, activeMusic == 0 ? "off" : GameSettings.toString(activeMusic), -2, 350);
-        soundText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, isSoundOn ? "Sound: Turn on" : "Sound: Turn off", 100, 200);
+        soundText = new TextView(myGdxGame.gameOverBlueFont.bitmapFont, isSoundOn ? "Sounds: Turn on" : "Sounds: Turn off", 100, 200);
         soundText.setOnClickListener(onChangeSound);
 
         arrowLeft.setOnClickListener(onClickBtnArrowLeft);
