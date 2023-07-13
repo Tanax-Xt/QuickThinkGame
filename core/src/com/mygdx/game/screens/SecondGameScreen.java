@@ -136,7 +136,6 @@ public class SecondGameScreen implements Screen {
                             matrix.get(i).isVisible2 = true;
                         }
                         repeatText.setText("Repeat!", true);
-                        repeatText.x = GameSettings.SCR_WIDTH / 2 - repeatText.width / 2;
                     }
                 }, 1);
                 isShow = true;
