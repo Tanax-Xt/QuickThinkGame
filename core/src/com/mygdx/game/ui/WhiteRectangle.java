@@ -28,11 +28,11 @@ public class WhiteRectangle {
         statsInfoResult.x = GameSettings.SCR_WIDTH / 2 - pointsView.height;
 
         menuLink = new TextView(secondFont, "Menu", GameSettings.SCR_WIDTH, GameSettings.SCR_HEIGHT - whiteRectHigh * 2);
-        menuLink.x = GameSettings.SCR_WIDTH - 2 * menuLink.width - 50;
+        menuLink.x = GameSettings.SCR_WIDTH - 2 * menuLink.width - 100;
         menuLink.y += menuLink.height + 50;
 
         restartButton = new TextView(secondFont, "Restart", 0, GameSettings.SCR_HEIGHT - whiteRectHigh * 2);
-        restartButton.x = restartButton.width;
+        restartButton.x = restartButton.width + 25;
         restartButton.y += restartButton.height + 50;
 
         components = new ArrayList<>();
