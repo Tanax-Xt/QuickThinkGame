@@ -40,10 +40,6 @@ public abstract class UiComponent {
         void onClick();
     }
 
-    public OnClickListener getOnClickListener() {
-        return onClickListener;
-    }
-
     public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
@@ -64,10 +60,6 @@ public abstract class UiComponent {
 
     public int getY() {
         return y;
-    }
-
-    public void update() {
-
     }
 
 }

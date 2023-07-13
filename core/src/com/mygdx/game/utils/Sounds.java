@@ -1,7 +1,6 @@
 package com.mygdx.game.utils;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 
 public class Sounds {

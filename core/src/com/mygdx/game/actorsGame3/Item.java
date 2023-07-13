@@ -13,7 +13,7 @@ public class Item {
     public int height = 120;
     // 1 - apple, 0 - ball
     int typeItem = 1;
-    int velocityY = 7;
+    int velocityY = 8;
     public boolean isActive = true;
 
     public Item(Texture texture, int x, int y, int type, OnKillItemListener onKillItemListener) {

@@ -56,7 +56,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-//        ScreenUtils.clear((float) 0.99, (float) 0.91, (float) 0.06, 1);
         if (Gdx.input.justTouched()) {
             myGdxGame.touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             myGdxGame.camera.unproject(myGdxGame.touch);

@@ -41,16 +41,6 @@ public class MemoryLoader {
         return 1;
     }
 
-    public static void saveResultThirdGame(int XP) {
-        prefs.putInteger("resultThirdGame", XP);
-        prefs.flush();
-    }
-
-    public static int loadResultThirdGame() {
-        if (prefs.contains("resultThirdGame")) return prefs.getInteger("resultThirdGame");
-        return 0;
-    }
-
     public static void saveSoundOn(boolean isTrue) {
         prefs.putBoolean("isSoundOn", isTrue);
         prefs.flush();

@@ -17,6 +17,7 @@ import com.mygdx.game.utils.MemoryLoader;
 import com.mygdx.game.utils.Sounds;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class ThirdGameScreen implements Screen {
@@ -67,13 +68,15 @@ public class ThirdGameScreen implements Screen {
         components.add(hpText);
     }
 
-    public void initItems(int i) {
+    public void initItems(int i, ArrayList<Integer> coordsX) {
         int itemNum = new Random().nextInt(2);
         String itemTitle = itemNum == 1 ? "apple" : "ball";
         Texture texture = new Texture("icons/game3/" + itemTitle + ".png");
 
         int x = 100 * (i % 2 + 1) + new Random().nextInt(GameSettings.SCR_WIDTH - 200 * (i % 2 + 1));
         int y = 5 * borderPosition + new Random().nextInt(GameSettings.SCR_HEIGHT - 6 * borderPosition);
+
+
 
 //        boolean isTrue = false;
 //        while (!isTrue) {
@@ -91,7 +94,7 @@ public class ThirdGameScreen implements Screen {
 //            isTrue = isPreTrue;
 //        }
 
-        final Item element = new Item(texture, x, y, itemNum, onKillItemListener);
+        final Item element = new Item(texture, coordsX.get(i), y, itemNum, onKillItemListener);
 
         element.actorImgView.setOnClickListener(new UiComponent.OnClickListener() {
             @Override
@@ -112,12 +115,20 @@ public class ThirdGameScreen implements Screen {
     }
 
     public void generateItems() {
-        for (int i = 0; i < 6; i++) initItems(i);
+        final ArrayList<Integer> coordsX = new ArrayList<>();
+        coordsX.add((int) (GameSettings.SCR_WIDTH * 0.15));
+        coordsX.add((int) (GameSettings.SCR_WIDTH * 0.27));
+        coordsX.add((int) (GameSettings.SCR_WIDTH * 0.4));
+        coordsX.add((int) (GameSettings.SCR_WIDTH * 0.68));
+        coordsX.add((int) (GameSettings.SCR_WIDTH * 0.86));
+        Collections.shuffle(coordsX);
+
+        for (int i = 0; i < 5; i++) initItems(i, coordsX);
 
         Timer.instance().scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                if (!isGameFinished) for (int i = 0; i < 5; i++) initItems(i);
+                if (!isGameFinished) for (int i = 0; i < 5; i++) initItems(i, coordsX);
             }
         }, 1, 1);
     }
