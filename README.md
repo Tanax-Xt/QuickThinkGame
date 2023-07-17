@@ -1,4 +1,4 @@
-## QuickThink Game
+# QuickThink Game
 
 The best mobile Java game of the HSE Summer School of Software Engineering
 
